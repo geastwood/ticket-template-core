@@ -1,0 +1,77 @@
+{
+    "template": "ticket",
+    "description": "jira ticket markdown format",
+    "sections": [
+        {
+            "type": "checklist",
+            "data": [
+                {
+                    "role": "header",
+                    "fields": [
+                        {
+                            "value": "key head"
+                        },
+                        {
+                            "value": "description head"
+                        },
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "comment head"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": "key field in row 1"
+                        },
+                        {
+                            "value": "description fieldi in row 1"
+                        },
+                        {
+                            "value": "(x)"
+                        },
+                        {
+                            "value": "comment field in row 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "userstory",
+            "data": [
+                {
+                    "role": "header",
+                    "fields": [
+                        {
+                            "value": "User Story"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": "this is user story 1"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": "this is user story 2"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "bulletin"
+        }
+    ]
+}

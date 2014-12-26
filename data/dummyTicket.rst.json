@@ -1,0 +1,707 @@
+{
+    "sections": [
+        {
+            "data": [
+                {
+                    "role": "header",
+                    "fields": [
+                        {
+                            "value": "Was ist zu tun / Userstory"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": "es muss bewiesen werden, dass die servicelayer-kisten mit ubuntu 14.04 laufen"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "data": [
+                {
+                    "role": "header",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Wichtige Informationen für Produktmanager"
+                        },
+                        {
+                            "value": "Kommentar"
+                        }
+                    ]
+                },
+                {
+                    "role": "header",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Wichtige Informationen für Entwickler"
+                        },
+                        {
+                            "value": " "
+                        }
+                    ]
+                },
+                {
+                    "role": "header",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Wichtige Informationen für Tester"
+                        },
+                        {
+                            "value": " "
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": "1"
+                        },
+                        {
+                            "value": "bitte immer entsprechend des kommentars speichern und laden. das laden an sich ist der kritische punkt"
+                        },
+                        {
+                            "value": " "
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "data": [
+                {
+                    "role": "header",
+                    "fields": [
+                        {
+                            "value": "###"
+                        },
+                        {
+                            "value": "Akzeptanzkriterien"
+                        },
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Kommentar"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " 1"
+                        },
+                        {
+                            "value": "bin2hex : an vielen stellen arbeiten wir mit bit-fields über chr() und ord(). diese stellen müssen so angepasst werden, dass lesen und schreiben auch mit mysqlnd funktioniert : [FR-5416"
+                        },
+                        {
+                            "value": "(x)"
+                        },
+                        {
+                            "value": " "
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " 2"
+                        },
+                        {
+                            "value": "reportcenter"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "zu Testen: alles rund um Templates (anlegen, bearbeiten, löschen und prüfen, ob die Templates korrekt angezeigt werden)"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": "3"
+                        },
+                        {
+                            "value": "phpseclib (sftp) funzt noch -> s. automatische Reportcenter Exports"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "Test auf lokaler DevVM mit Ubuntu 14.04.01 und PHP 5.5.9"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Service_Billing_File::_postProcessFiles()"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "in der Kundenverwaltung bei einem Kunden ein Eintrag im Reiter \"Dateien\" erzeugen/bearbeiten"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Service_Core_ColumnSet::_postProcessSet()"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "in der tabview ein im spaltenwählen den \"spaltensets\"-tab öffnen"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Service_Core_ColumnSet::deleteColumnSet()"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "in der tabview ein spaltenset löschen"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Service_Core_FilterSet::_postProcessSet()"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "in der tabview bei den filter in den \"sets\"-tab"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Service_Core_FilterSet::deleteFilterSet()"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "filterset in  der tabview löschen"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Service_Pixelcarrier_Action::_postProcessPixels()"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "/pixelcarrier?idstring=19004 \"Auslieferungs\"-Grid pixel auswählen und Status ändern"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Service_Pixelcarrier_Data::getSettings()"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "pixelcarrier?idstring=19004 \"einstellungen\"-tab, die beiden checkboxen"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Service_Usersegments_Segment::_convertBitValue()"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "usersegment anlagen mit einer exclude-regel, anschließend laden"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Service_Realtimebidding_Userprofile::createNewProfile()"
+                        },
+                        {
+                            "value": "(?)"
+                        },
+                        {
+                            "value": "toter code"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Service_Realtimebidding_Userprofile::storeConversionTypeRelation()"
+                        },
+                        {
+                            "value": "(?)"
+                        },
+                        {
+                            "value": "toter code"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Ia_Dao_LocalLogs_PixelcarrierExternalpixelsLog::_postProcess()"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "/pixelcarrier?idstring=19004 postview im history-fenster"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Ia_Dao_LocalSettings_PixelcarrierExternalpixels::_postProcess()"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "/pixelcarrier?idstring=19004 bei einem pixel postvivew aktivieren => anzeige im grid"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Ia_Dao_LocalSettings_RtbCampaign::_postProcessCampaignData()"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "bei einer rtb-kampagne (erstellen/editieren) unter \"laufzeiteinstellungen\" die checkbox \"laufzeit des masters nicht beachten\""
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Ia_Model_Core_Template::_postProcessTemplates()"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "in der tabview ein die tab-templates laden (\"+\" zeichen ganz rechts neben den tabs)"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Ia_Model_Core_Template::deleteTemplate()"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "in der tabview ein tab-template löschen"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Ia_Model_Realtimebidding_Campaign::getByIds()"
+                        },
+                        {
+                            "value": "(?)"
+                        },
+                        {
+                            "value": "toter code"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Ia_Model_Realtimebidding_Conversiontyperelation::_unescapeBits()"
+                        },
+                        {
+                            "value": "(?)"
+                        },
+                        {
+                            "value": "toter code"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Ia_Model_Realtimebidding_Userprofile::_unescapeBits()"
+                        },
+                        {
+                            "value": "(?)"
+                        },
+                        {
+                            "value": "toter code"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Ia_Model_Reportcenter_Report::deleteTemplate()"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "im reportcenter in der templateverwaltung: man kann templates löschen"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Ia_Model_Reportcenter_Report::_postProcessTemplates()"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "ReportCenter -> \"Anlegen\" im Fenster werden Report-Templates angezeigt"
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Ia_Model_Tracking_Settings::getTrackingSettings()"
+                        },
+                        {
+                            "value": "(/)"
+                        },
+                        {
+                            "value": "/tracking/settings?idstring=19004 ganz unten bei \"doppelte orderIds filter\" die optionen durchprobieren (laden/speichern)"
+                        }
+                    ]
+                },
+                {
+                    "role": "header",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Technische Akzeptanzkriterien"
+                        },
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": " "
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": "1"
+                        },
+                        {
+                            "value": "Anforderungen von Produktmanagement komplett umgesetzt oder kommentiert"
+                        },
+                        {
+                            "value": "(x)"
+                        },
+                        {
+                            "value": " "
+                        }
+                    ]
+                },
+                {
+                    "role": "header",
+                    "fields": [
+                        {
+                            "value": "|2|Code komplett in Trunk committed|(x)| "
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": "3"
+                        },
+                        {
+                            "value": "Änderungen an Datenbank in Datei abgelegt und im Releaseticket verlinkt"
+                        },
+                        {
+                            "value": "(x)"
+                        },
+                        {
+                            "value": " "
+                        }
+                    ]
+                },
+                {
+                    "role": "header",
+                    "fields": [
+                        {
+                            "value": "|4|Wordings sind eingebaut und überprüft|(x)| "
+                        }
+                    ]
+                },
+                {
+                    "role": "header",
+                    "fields": [
+                        {
+                            "value": "|5|Review auf fremder Maschine durchgeführt|(x)| "
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": "6"
+                        },
+                        {
+                            "value": "Review mit verschiedenen Grenzfällen erfolgreich durchgeführt"
+                        },
+                        {
+                            "value": "(x)"
+                        },
+                        {
+                            "value": " "
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": "7"
+                        },
+                        {
+                            "value": "Zeit komplett geloggt"
+                        },
+                        {
+                            "value": "(x)"
+                        },
+                        {
+                            "value": " "
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": "8"
+                        },
+                        {
+                            "value": "Fixversion richtig gesetzt"
+                        },
+                        {
+                            "value": "(x)"
+                        },
+                        {
+                            "value": " "
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": "9"
+                        },
+                        {
+                            "value": "Ticket-Wall angepasst"
+                        },
+                        {
+                            "value": "(x)"
+                        },
+                        {
+                            "value": " "
+                        }
+                    ]
+                },
+                {
+                    "role": "header",
+                    "fields": [
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": "Testbarkeit"
+                        },
+                        {
+                            "value": " "
+                        },
+                        {
+                            "value": " "
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": "1"
+                        },
+                        {
+                            "value": "alle Elemente (Fieldsets, Buttons, Panels,..) haben eindeutige Css Klassen"
+                        },
+                        {
+                            "value": "(x)"
+                        },
+                        {
+                            "value": " "
+                        }
+                    ]
+                },
+                {
+                    "role": "row",
+                    "fields": [
+                        {
+                            "value": "2"
+                        },
+                        {
+                            "value": "wichtige Informationen für Tester eingetragen"
+                        },
+                        {
+                            "value": "(x)"
+                        },
+                        {
+                            "value": " "
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

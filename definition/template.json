@@ -1,0 +1,17 @@
+{
+    "type": "template",
+    "definitions": [
+        {
+            "name": "checklist",
+            "columns": ["key", "description", "status", "comment"]
+        },
+        {
+            "name": "userstory",
+            "columns": ["description"]
+        },
+        {
+            "name": "bulletin",
+            "columns": ["key", "description", "comment"]
+        }
+    ]
+}

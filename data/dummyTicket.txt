@@ -1,0 +1,46 @@
+||Was ist zu tun / Userstory||
+|es muss bewiesen werden, dass die servicelayer-kisten mit ubuntu 14.04 laufen|
+
+|| ||Wichtige Informationen für Produktmanager||Kommentar||
+|| ||Wichtige Informationen für Entwickler|| ||
+|| ||Wichtige Informationen für Tester|| ||
+|1|bitte immer entsprechend des kommentars speichern und laden. das laden an sich ist der kritische punkt| |
+
+||###||Akzeptanzkriterien|| ||Kommentar||
+| 1|bin2hex : an vielen stellen arbeiten wir mit bit-fields über chr() und ord(). diese stellen müssen so angepasst werden, dass lesen und schreiben auch mit mysqlnd funktioniert : [FR-5416|(x)| |
+| 2|reportcenter|(/)|zu Testen: alles rund um Templates (anlegen, bearbeiten, löschen und prüfen, ob die Templates korrekt angezeigt werden)|
+|3|phpseclib (sftp) funzt noch -> s. automatische Reportcenter Exports|(/)|Test auf lokaler DevVM mit Ubuntu 14.04.01 und PHP 5.5.9|
+| |Service_Billing_File::_postProcessFiles()|(/)|in der Kundenverwaltung bei einem Kunden ein Eintrag im Reiter "Dateien" erzeugen/bearbeiten|
+| |Service_Core_ColumnSet::_postProcessSet()|(/)|in der tabview ein im spaltenwählen den "spaltensets"-tab öffnen|
+| |Service_Core_ColumnSet::deleteColumnSet()|(/)|in der tabview ein spaltenset löschen|
+| |Service_Core_FilterSet::_postProcessSet()|(/)|in der tabview bei den filter in den "sets"-tab|
+| |Service_Core_FilterSet::deleteFilterSet()|(/)|filterset in  der tabview löschen|
+| |Service_Pixelcarrier_Action::_postProcessPixels()|(/)|/pixelcarrier?idstring=19004 "Auslieferungs"-Grid pixel auswählen und Status ändern|
+| |Service_Pixelcarrier_Data::getSettings()|(/)|pixelcarrier?idstring=19004 "einstellungen"-tab, die beiden checkboxen|
+| |Service_Usersegments_Segment::_convertBitValue()|(/)|usersegment anlagen mit einer exclude-regel, anschließend laden|
+| |Service_Realtimebidding_Userprofile::createNewProfile()|(?)|toter code|
+| |Service_Realtimebidding_Userprofile::storeConversionTypeRelation()|(?)|toter code|
+| |Ia_Dao_LocalLogs_PixelcarrierExternalpixelsLog::_postProcess()|(/)|/pixelcarrier?idstring=19004 postview im history-fenster|
+| |Ia_Dao_LocalSettings_PixelcarrierExternalpixels::_postProcess()|(/)|/pixelcarrier?idstring=19004 bei einem pixel postvivew aktivieren => anzeige im grid|
+| |Ia_Dao_LocalSettings_RtbCampaign::_postProcessCampaignData()|(/)|bei einer rtb-kampagne (erstellen/editieren) unter "laufzeiteinstellungen" die checkbox "laufzeit des masters nicht beachten"|
+| |Ia_Model_Core_Template::_postProcessTemplates()|(/)|in der tabview ein die tab-templates laden ("+" zeichen ganz rechts neben den tabs)|
+| |Ia_Model_Core_Template::deleteTemplate()|(/)|in der tabview ein tab-template löschen|
+| |Ia_Model_Realtimebidding_Campaign::getByIds()|(?)|toter code|
+| |Ia_Model_Realtimebidding_Conversiontyperelation::_unescapeBits()|(?)|toter code|
+| |Ia_Model_Realtimebidding_Userprofile::_unescapeBits()|(?)|toter code|
+| |Ia_Model_Reportcenter_Report::deleteTemplate()|(/)|im reportcenter in der templateverwaltung: man kann templates löschen|
+| |Ia_Model_Reportcenter_Report::_postProcessTemplates()|(/)|ReportCenter -> "Anlegen" im Fenster werden Report-Templates angezeigt|
+| |Ia_Model_Tracking_Settings::getTrackingSettings()|(/)|/tracking/settings?idstring=19004 ganz unten bei "doppelte orderIds filter" die optionen durchprobieren (laden/speichern)|
+|| ||Technische Akzeptanzkriterien|| || ||
+|1|Anforderungen von Produktmanagement komplett umgesetzt oder kommentiert|(x)| |
+|2|Code komplett in Trunk committed|(x)| ||
+|3|Änderungen an Datenbank in Datei abgelegt und im Releaseticket verlinkt|(x)| |
+|4|Wordings sind eingebaut und überprüft|(x)| ||
+|5|Review auf fremder Maschine durchgeführt|(x)| ||
+|6|Review mit verschiedenen Grenzfällen erfolgreich durchgeführt|(x)| |
+|7|Zeit komplett geloggt|(x)| |
+|8|Fixversion richtig gesetzt|(x)| |
+|9|Ticket-Wall angepasst|(x)| |
+|| ||Testbarkeit|| || ||
+|1|alle Elemente (Fieldsets, Buttons, Panels,..) haben eindeutige Css Klassen|(x)| |
+|2|wichtige Informationen für Tester eingetragen|(x)| |
