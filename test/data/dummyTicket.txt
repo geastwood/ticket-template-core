@@ -49,10 +49,10 @@ inside there are some text
 | |Ia_Model_Tracking_Settings::getTrackingSettings()|(/)|/tracking/settings?idstring=19004 ganz unten bei "doppelte orderIds filter" die optionen durchprobieren (laden/speichern)|
 || ||Technische Akzeptanzkriterien|| || ||
 |1|Anforderungen von Produktmanagement komplett umgesetzt oder kommentiert|(x)| |
-|2|Code komplett in Trunk committed|(x)| ||
+|2|Code komplett in Trunk committed|(x)| |
 |3|Änderungen an Datenbank in Datei abgelegt und im Releaseticket verlinkt|(x)| |
-|4|Wordings sind eingebaut und überprüft|(x)| ||
-|5|Review auf fremder Maschine durchgeführt|(x)| ||
+|4|Wordings sind eingebaut und überprüft|(x)| |
+|5|Review auf fremder Maschine durchgeführt|(x)| |
 |6|Review mit verschiedenen Grenzfällen erfolgreich durchgeführt|(x)| |
 |7|Zeit komplett geloggt|(x)| |
 |8|Fixversion richtig gesetzt|(x)| |

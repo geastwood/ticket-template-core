@@ -15,13 +15,11 @@ var parse = function(data) {
     rst.sections = rst.sections.filter(function(section) { // clean raw section
         return section.trim().length > 0;
     }).map(function(section) { // send to section parser to format
-        return {
-            data: parseSection(section.trim(), rst.rest)
-        };
+        return parseSection(section.trim(), rst.rest);
     }).filter(function(section) {
         // section parse may return empty section
         // e.g. section is invalid, so emtpy is returned.
-        return section.data.length > 0;
+        return section.length > 0;
     });
 
     return rst;
@@ -56,6 +54,7 @@ var parseSection = function(section, rest) {
                 return part.value.length > 0;
             })
         };
+
     });
 
     return rst;
@@ -66,7 +65,7 @@ var parseSection = function(section, rest) {
  */
 module.exports = parse;
 
-// require('fs').readFile(require('path').join(__dirname, '../../data/dummyTicket.txt'), 'utf8', function(err, data) {
+// require('fs').readFile(require('path').join(__dirname, '/../test/data/dummyTicket.txt'), 'utf8', function(err, data) {
 //     var text = JSON.stringify(parse(data), null, 4);
-//     require('fs').writeFileSync(__dirname + '/../../data/dummyTicket.rst.json', text);
+//     require('fs').writeFileSync(__dirname + '/../log', text);
 // });
