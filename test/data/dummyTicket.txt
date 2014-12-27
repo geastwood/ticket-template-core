@@ -1,3 +1,15 @@
+some other text with '|' in side
+
+
+
+there are some other inrelevant texts
+
+
+
+
+#this a comment
+
+
 ||Was ist zu tun / Userstory||
 |es muss bewiesen werden, dass die servicelayer-kisten mit ubuntu 14.04 laufen|
 
@@ -5,6 +17,8 @@
 || ||Wichtige Informationen für Entwickler|| ||
 || ||Wichtige Informationen für Tester|| ||
 |1|bitte immer entsprechend des kommentars speichern und laden. das laden an sich ist der kritische punkt| |
+
+inside there are some text
 
 ||###||Akzeptanzkriterien|| ||Kommentar||
 | 1|bin2hex : an vielen stellen arbeiten wir mit bit-fields über chr() und ord(). diese stellen müssen so angepasst werden, dass lesen und schreiben auch mit mysqlnd funktioniert : [FR-5416|(x)| |

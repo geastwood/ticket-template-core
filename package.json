@@ -1,0 +1,18 @@
+{
+  "name": "ticket-template-core",
+  "version": "0.1.0",
+  "description": "Core functions of Ticket template",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git-1.rz1.intelliad.com:fliu/ia-fr-ticket-template-core.git"
+  },
+  "author": "Fei Liu <liu.feiwood@gmail.com>",
+  "license": "MIT"
+}

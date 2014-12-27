@@ -1,4 +1,4 @@
-var config      = require('../config'),
+var config      = require('./config'),
     headerIFS   = config().getIFS('header'),
     rowIFS      = config().getIFS('row');
 
@@ -11,10 +11,16 @@ var parse = function(data) {
         sections: data.split('\n\n')
     };
 
-    rst.sections = rst.sections.map(function(section) {
+    rst.sections = rst.sections.filter(function(section) { // clean raw section
+        return section.trim().length > 0;
+    }).map(function(section) { // send to section parser to format
         return {
-            data: parseSection(section)
+            data: parseSection(section.trim())
         };
+    }).filter(function(section) {
+        // section parse may return empty section
+        // e.g. section is invalid, so emtpy is returned.
+        return section.data.length > 0;
     });
 
     return rst;
@@ -25,7 +31,14 @@ var parse = function(data) {
  */
 var parseSection = function(section) {
     var rst = section.split('\n').filter(function(line) {
-        return line.trim().length > 0;
+        line = line.trim();
+        if (['|', '||'].indexOf(line.charAt(0)) < 0) {
+            return false;
+        }
+        if (line.length === 0) {
+            return false;
+        }
+        return true;
     }).map(function(line) {
         var isHead = line.indexOf(headerIFS) >= 0;
         return {
