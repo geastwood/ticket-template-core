@@ -8,14 +8,15 @@ var config      = require('./config'),
 var parse = function(data) {
 
     var rst = {
-        sections: data.split('\n\n')
+        sections: data.split('\n\n'),
+        rest: []
     };
 
     rst.sections = rst.sections.filter(function(section) { // clean raw section
         return section.trim().length > 0;
     }).map(function(section) { // send to section parser to format
         return {
-            data: parseSection(section.trim())
+            data: parseSection(section.trim(), rst.rest)
         };
     }).filter(function(section) {
         // section parse may return empty section
@@ -29,10 +30,15 @@ var parse = function(data) {
 /**
  * @private
  */
-var parseSection = function(section) {
+var parseSection = function(section, rest) {
     var rst = section.split('\n').filter(function(line) {
+        // filter, pass if
+        //  1) start with '|' or '||'
+        //  2) non-empty
         line = line.trim();
         if (['|', '||'].indexOf(line.charAt(0)) < 0) {
+            // remember the `non-template` line into `rest` collection
+            rest.push(line);
             return false;
         }
         if (line.length === 0) {
@@ -41,6 +47,7 @@ var parseSection = function(section) {
         return true;
     }).map(function(line) {
         var isHead = line.indexOf(headerIFS) >= 0;
+
         return {
             role: isHead ? 'header' : 'row',
             fields: line.split(isHead ? headerIFS : rowIFS).map(function(part) {

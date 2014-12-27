@@ -14,5 +14,8 @@
     "url": "git@git-1.rz1.intelliad.com:fliu/ia-fr-ticket-template-core.git"
   },
   "author": "Fei Liu <liu.feiwood@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^0.5.1"
+  }
 }
