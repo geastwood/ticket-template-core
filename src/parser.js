@@ -15,11 +15,13 @@ var parse = function(data) {
     rst.sections = rst.sections.filter(function(section) { // clean raw section
         return section.trim().length > 0;
     }).map(function(section) { // send to section parser to format
-        return parseSection(section.trim(), rst.rest);
+        return {
+            data: parseSection(section.trim(), rst.rest)
+        };
     }).filter(function(section) {
         // section parse may return empty section
         // e.g. section is invalid, so emtpy is returned.
-        return section.length > 0;
+        return section.data.length > 0;
     });
 
     return rst;
