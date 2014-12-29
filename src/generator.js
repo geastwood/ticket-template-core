@@ -84,6 +84,7 @@ var format = function(data, mode) {
 
     return rst;
 };
+
 var generate = function(data, mode) {
     var borderPad = util.pad('=');
     if (mode === 'pretty') {

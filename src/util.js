@@ -27,8 +27,6 @@ var pad = function(deli) {
         }
     };
 
-    // console.log(align('Wichtige Informationen für Produktmanager', 60, 'center'));
-
     var ellipsis = function(str, length) {
 
         if (length < 5) {
@@ -44,9 +42,9 @@ var pad = function(deli) {
 
     return {
         pad: function(str, length, alignMode, guard) {
-            alignMode = alignMode || 'left'; // [left|center|right]
+            alignMode = alignMode || 'right'; // [left|center|right]
 
-            if (guard && alignMode === 'left') {
+            if (guard && alignMode === 'right') {
                 str = ellipsis(str, length);
             }
             return align(str, length, alignMode);
