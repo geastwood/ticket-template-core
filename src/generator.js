@@ -1,6 +1,5 @@
 var util = require('./util');
 var chalk = require('chalk');
-var borderPad = util.pad('=');
 
 // TODO move to definition
 var matrix = {
@@ -35,7 +34,7 @@ var print = function(sections, mode) {
             rowStr = row.fields.reduce(function(prev, current) {
                 var v = current.value;
                 if (mode === 'pretty') {
-                    v = (row.role === 'header') ? chalk.green(current.value) : current.value;
+                    v = (row.role === 'header') ? chalk.yellow.underline.bold(current.value) : current.value;
                 }
                 return prev + v + ifs;
             }, ifs);
@@ -86,6 +85,7 @@ var format = function(data, mode) {
     return rst;
 };
 var generate = function(data, mode) {
+    var borderPad = util.pad('=');
     if (mode === 'pretty') {
         return chalk.blue(borderPad.pad('', 140)) + '\n' +
                print(format(data, 'pretty'), 'pretty') + '\n' +
@@ -98,8 +98,8 @@ var generate = function(data, mode) {
 module.exports.generate = generate;
 
 // debug
-var content = require('fs').readFile(__dirname + '/../log', 'utf8', function(err, data) {
-    var json = JSON.parse(data);
-    console.log(generate(json));
-    // require('fs').writeFileSync(__dirname + '/../log1', JSON.stringify(format(json, 'padtable'), null, 4));
-});
+// var content = require('fs').readFile(__dirname + '/../log', 'utf8', function(err, data) {
+//     var json = JSON.parse(data);
+//     console.log(generate(json, 'pretty'));
+//     // require('fs').writeFileSync(__dirname + '/../log1', JSON.stringify(format(json, 'padtable'), null, 4));
+// });
