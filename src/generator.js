@@ -1,79 +1,105 @@
 var util = require('./util');
+var chalk = require('chalk');
+var borderPad = util.pad('=');
 
-var template = {
-    table: function(data) {
-        var rst;
-        rst = data.sections.map(function(section) {
-            return {
-                type: section.type,
-                template: (section.data || []).map(function(row) {
-                    var ifs = row.role === 'header' ? '||' : '|';
-                    return row.fields.reduce(function(prev, current) {
-                        return prev + current.value + ifs;
-                    }, ifs);
-                })
-            };
-        });
-        return rst;
-    },
-    log: function(data) {
-    }
+// TODO move to definition
+var matrix = {
+    '4': [
+        {mode: 'pad', strLength: 3, align: 'left', ellip: false},
+        {mode: 'pad', strLength: 80, align: 'left', ellip: true},
+        {mode: 'pad', strLength: 5, align: 'center', ellip: false},
+        {mode: 'pad', strLength: 47, align: 'left', ellip: true}
+    ],
+    '3': [
+        {mode: 'pad', strLength: 3, align: 'left', ellip: false},
+        {mode: 'pad', strLength: 86, align: 'left', ellip: true},
+        {mode: 'pad', strLength: 47, align: 'left', ellip: true}
+    ],
+    '1': [{mode: 'pad', strLength: 138, align: 'left', ellip: true}]
 };
 
-var generate = function(data) {
-    var rst = data.filter(function(item) {
-        return item.template.length > 0;
-    }).map(function(data) {
-        return data.template.join('\n');
+var print = function(sections, mode) {
+
+    var rst = [];
+
+    rst = sections.map(function(section) {
+        var rst = [];
+
+        section.data.forEach(function(row) {
+            var ifs = '|', rowStr;
+
+            if (mode !== 'pretty') {
+                ifs = row.role === 'header' ? '||' : '|';
+            }
+
+            rowStr = row.fields.reduce(function(prev, current) {
+                var v = current.value;
+                if (mode === 'pretty') {
+                    v = (row.role === 'header') ? chalk.green(current.value) : current.value;
+                }
+                return prev + v + ifs;
+            }, ifs);
+            rst.push(rowStr);
+        });
+
+        return rst;
+    });
+
+    rst = rst.map(function(section) {
+        return section.join('\n');
     }).join('\n\n');
 
     return rst;
 };
 
-var print = function(data) {
+var format = function(data, mode) {
+    var rst,
+        pad = util.pad();
 
-    var rst, padder = util.padding();
     rst = data.sections.map(function(section) {
         return {
-            type: section.type,
-            template: section.data.map(function(row) {
-                var ifs = '|';
-                // TODO
-                return row.fields.reduce(function(prev, current, i, arr) {
-                    var rst = current.value;
-                    if (arr.length === 4 && i === 0) {
-                        rst = padder.front(rst, 3);
-                    }
-                    if (arr.length ===4 && i === 1) {
-                        rst = padder.end(rst, 60, true);
-                    }
-                    if (arr.length ===4 && i === 2) {
-                        rst = padder.end(rst, 5);
-                    }
-                    if (arr.length ===4 && i === 3) {
-                        rst = padder.wrap(rst, 60);
-                    }
-                    if (arr.length ===1 && i === 0) {
-                        rst = padder.wrap(rst, 40);
-                    }
-                    return prev + rst + ifs;
-                }, ifs);
+            data: section.data.map(function(row) {
+                var fieldCount = row.fields.length;
+                return {
+                    role: row.role,
+                    ifs: (row.role === 'header') ? '||' : '|',
+                    fieldCount: fieldCount,
+                    fields: row.fields.map(function(field, i, arr) {
+                        var config = matrix[fieldCount][i],
+                            align = row.role === 'header' ? 'center' : config.align,
+                            padMode = row.role === 'header' ? 'pad' : config.mode,
+                            rst = {};
+
+                        if (mode === 'pretty') {
+                            rst.value = pad[padMode](field.value, config.strLength, align, config.ellip);
+                        } else {
+                            rst.value = field.value;
+                        }
+
+                        return rst;
+                    })
+                };
             })
         };
     });
 
-    console.log(generate(rst));
     return rst;
-
+};
+var generate = function(data, mode) {
+    if (mode === 'pretty') {
+        return chalk.blue(borderPad.pad('', 140)) + '\n' +
+               print(format(data, 'pretty'), 'pretty') + '\n' +
+               chalk.blue(borderPad.pad('', 140));
+    }
+    return print(format(data));
 };
 
 // @api
 module.exports.generate = generate;
-module.exports.print = print;
 
 // debug
 var content = require('fs').readFile(__dirname + '/../log', 'utf8', function(err, data) {
     var json = JSON.parse(data);
-    print(json);
-    // console.log(generate(template.table(json)));
+    console.log(generate(json));
+    // require('fs').writeFileSync(__dirname + '/../log1', JSON.stringify(format(json, 'padtable'), null, 4));
 });
