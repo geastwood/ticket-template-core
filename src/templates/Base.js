@@ -1,13 +1,8 @@
 var util = require('../util');
-var Template = function() {};
 var chalk = require('chalk');
 
-Template.prototype.print = function() {
-    console.log('print');
-};
-
-Template.prototype.generate = function() {
-    console.log('generate');
+var Template = function(data) {
+    this.sectionData = data || [];
 };
 
 Template.prototype.organize = function(mode) {
