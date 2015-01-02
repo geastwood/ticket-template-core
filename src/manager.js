@@ -1,8 +1,18 @@
 var Q = require('q');
 var _ = require('lodash');
 
+/**
+ * @constructor
+ * @param {Object} dataProvider must provide `load` method
+ *
+ * @return {this}
+ */
 var Manager = function(dataProvider) {
     this.dataProvider = dataProvider;
+};
+
+Manager.create = function(dataProvider) {
+    return new Manager(dataProvider);
 };
 
 Manager.prototype.load = function() {
@@ -10,9 +20,13 @@ Manager.prototype.load = function() {
     this.dataProvider.load(function(data) {
         defer.resolve(data);
     });
+
     this.dataPromise = defer.promise;
 };
 
+/**
+ * @return {Promise.thenable}
+ */
 Manager.prototype.getRawData = function() {
 
     if (!this.dataPromise) {
@@ -24,9 +38,15 @@ Manager.prototype.getRawData = function() {
     });
 };
 
+/**
+ * @return {Promise.thenable}
+ */
 Manager.prototype.getData = function() {
     return this.getRawData().then(function(json) {
-        var config = require('./config'), rst, action = require('./action');
+        var config = require('../config'),
+            mixinMethods = require('./methods'),
+            rst,
+            counter = 0;
 
         rst = {
             templates: [],
@@ -34,13 +54,14 @@ Manager.prototype.getData = function() {
 
         json.sections.forEach(function(section) {
             var type = config().guessDefinition(section),
-                Template = require('./templates/' + type);
+                Template = require('../templates/' + type);
 
-            rst.templates.push(new Template(section));
+            rst.templates.push(new Template(section, counter++));
         });
 
-        return _.extend(rst, action);
+        return _.extend(rst, mixinMethods);
     });
 };
 
 module.exports = Manager;
+

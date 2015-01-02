@@ -1,7 +1,8 @@
 var util = require('../util');
 var chalk = require('chalk');
 
-var Template = function(data) {
+var Template = function(data, id) {
+    this.id = [this.code, this.id].join('-');
     this.sectionData = data || [];
 };
 
@@ -15,7 +16,7 @@ Template.prototype.organize = function(mode) {
         var fieldCount = row.fields.length;
         return {
             role: row.role,
-            rowIndex: that.code + rowIndex++,
+            rowIndex: [that.code, rowIndex++].join('-'),
             ifs: (row.role === 'header') ? '||' : '|',
             fieldCount: fieldCount,
             fields: row.fields.map(function(field, i) {
