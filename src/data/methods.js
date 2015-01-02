@@ -25,7 +25,9 @@ methods.getFieldOptions = function(key) {
         rst = t.getFields(rowIndex);
     });
 
-    return rst;
+    return rst.map(function(field, index) {
+        return {name: field, value: index};
+    });
 };
 
 methods.parseUniqueKey = function(key) {

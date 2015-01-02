@@ -42,23 +42,45 @@ Template.prototype.organize = function(mode) {
 };
 
 Template.prototype.getFields = function(rowIndex) {
-    return this.sectionData.data[rowIndex].fields.map(function(field) {
+    return this.sectionData.data[rowIndex].fields.map(function(field, i) {
         var v = field.value.trim();
         return v.length === 0 ?  '(!this field is empty)' : v;
     });
 };
 
-Template.prototype.update = function() {
-
+Template.prototype.update = function(rowIndex, fieldIndex, v) {
+    this.sectionData.data[rowIndex].fields.forEach(function(field, index) {
+        if (index === fieldIndex) {
+            field.value = v;
+        }
+    });
 };
-Template.prototype.insert = function() {
 
+Template.prototype.insert = function(rowIndex, content) {
+    this.sectionData.data.splice(rowIndex, 0, Template.buildRow(content));
 };
-Template.prototype.append = function() {
 
+Template.prototype.append = function(content) {
+    this.sectionData.data.push(Template.buildRow(content));
 };
-Template.prototype['delete'] = function() {
 
+Template.prototype['delete'] = function(rowIndex) {
+    this.sectionData.data.splice(rowIndex, 1);
+};
+
+Template.buildRow = function(content) {
+    var fields;
+
+    fields = content.trim().split('|').map(function(field) {
+        return {
+            value: field
+        };
+    });
+
+    return {
+        role: 'row',
+        fields: fields
+    };
 };
 
 Template.format = function(section, mode) {
