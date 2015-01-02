@@ -15,7 +15,9 @@ there are some other inrelevant texts
 |es muss bewiesen werden, dass die servicelayer-kisten mit ubuntu 14.04 laufen|
 
 || ||Wichtige Informationen für Produktmanager||Kommentar||
+
 || ||Wichtige Informationen für Entwickler|| ||
+
 || ||Wichtige Informationen für Tester|| ||
 |1|bitte immer entsprechend des kommentars speichern und laden. das laden an sich ist der kritische punkt| |
 
@@ -46,6 +48,7 @@ inside there are some text
 | |Ia_Model_Reportcenter_Report::deleteTemplate()|(/)|im reportcenter in der templateverwaltung: man kann templates löschen|
 | |Ia_Model_Reportcenter_Report::_postProcessTemplates()|(/)|ReportCenter -> "Anlegen" im Fenster werden Report-Templates angezeigt|
 | |Ia_Model_Tracking_Settings::getTrackingSettings()|(/)|/tracking/settings?idstring=19004 ganz unten bei "doppelte orderIds filter" die optionen durchprobieren (laden/speichern)|
+
 || ||Technische Akzeptanzkriterien|| || ||
 |1|Anforderungen von Produktmanagement komplett umgesetzt oder kommentiert|(x)| |
 |2|Code komplett in Trunk committed|(x)| |
@@ -56,6 +59,7 @@ inside there are some text
 |7|Zeit komplett geloggt|(x)| |
 |8|Fixversion richtig gesetzt|(x)| |
 |9|Ticket-Wall angepasst|(x)| |
+
 || ||Testbarkeit|| || ||
 |1|alle Elemente (Fieldsets, Buttons, Panels,..) haben eindeutige Css Klassen|(x)| |
 |2|wichtige Informationen für Tester eingetragen|(x)| |

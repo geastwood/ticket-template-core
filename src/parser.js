@@ -69,5 +69,5 @@ module.exports = parse;
 
 // require('fs').readFile(require('path').join(__dirname, '/../test/data/dummyTicket.txt'), 'utf8', function(err, data) {
 //     var text = JSON.stringify(parse(data), null, 4);
-//     require('fs').writeFileSync(__dirname + '/../log2', text);
+//     require('fs').writeFileSync(__dirname + '/../log', text);
 // });

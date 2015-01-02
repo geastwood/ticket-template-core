@@ -19,4 +19,13 @@ methods.optionList = function(mode) {
     });
 };
 
+method.parseUniqueKey = function(key) {
+    var parts = key.trim().split('-');
+
+    return {
+        key: [parts[0], parts[1]].join('-'),
+        index: parstInt(parts[2], 10)
+    };
+};
+
 module.exports = action;
