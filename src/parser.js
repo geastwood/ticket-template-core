@@ -5,10 +5,14 @@ var config      = require('./config'),
 /**
  * @public
  */
-var parse = function(data) {
+var parse = function(data, mode) {
 
+    var linebreak = '\n\n';
+    if (mode === 'jira') {
+        linebreak = '\r\n\r\n';
+    }
     var rst = {
-        sections: data.split('\n\n'),
+        sections: data.split(linebreak),
         rest: []
     };
 
@@ -16,7 +20,7 @@ var parse = function(data) {
         return section.trim().length > 0;
     }).map(function(section) { // send to section parser to format
         return {
-            data: parseSection(section.trim(), rst.rest)
+            data: parseSection(section.trim(), rst.rest, mode)
         };
     }).filter(function(section) {
         // section parse may return empty section
@@ -30,8 +34,12 @@ var parse = function(data) {
 /**
  * @private
  */
-var parseSection = function(section, rest) {
-    var rst = section.split('\n').filter(function(line) {
+var parseSection = function(section, rest, mode) {
+    var linebreak = '\n';
+    if (mode === 'jira') {
+        linebreak = '\r\n';
+    }
+    var rst = section.split(linebreak).filter(function(line) {
         // filter, pass if
         //  1) start with '|' or '||'
         //  2) non-empty

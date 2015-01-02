@@ -34,7 +34,10 @@ Manager.prototype.getRawData = function() {
     }
 
     return this.dataPromise.then(function(data) {
-        return JSON.parse(data);
+        if (typeof data === 'string') {
+            return JSON.parse(data);
+        }
+        return data;
     });
 };
 
@@ -43,17 +46,22 @@ Manager.prototype.getRawData = function() {
  */
 Manager.prototype.getData = function() {
     return this.getRawData().then(function(json) {
-        var config = require('../config');
-        var mixinMethods = require('./methods');
-        var rst;
-        var counter = 0;
+        var config = require('../config'),
+            mixinMethods = require('./methods'),
+            counter = 0,
+            rst;
 
         rst = {
             templates: [],
         };
         json.sections.forEach(function(section) {
-            var type = config().guessDefinition(section),
-                Template = require('../templates/' + type);
+            var type = config().guessDefinition(section), Template;
+
+            if (type === 'unknown') {
+                throw 'cannot handle unknown template type';
+            }
+
+            Template = require('../templates/' + type);
 
             rst.templates.push(new Template(section, counter++));
         });

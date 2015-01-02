@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var fs = require('fs');
+var parser = require('../parser');
 
 var providerFactory = {
     local: function(id) {
@@ -18,11 +19,22 @@ var providerFactory = {
     jira: function(id) {
         return {
             load: function(fn) {
-                var child;
+                var child, data = '', that = this;
                 child = require('child_process').spawn('curl', [
                     '-u', 'fliu:E4NTUyL8', '-X', 'GET', '-H', 'Content-Type: application/json',
-                    'http://jira.muc.intelliad.de/rest/api/2/search?jql=key=' + 'FR-5452'
+                    'http://jira.muc.intelliad.de/rest/api/2/search?jql=key=' + 'FR-5434'
                 ]);
+
+                child.stdout.on('data', function(chunk) {
+                    data += chunk;
+                });
+                child.stdout.on('end', function() {
+                    fn(that.getDescription(data));
+                });
+            },
+            getDescription: function(data) {
+                var json = JSON.parse(data);
+                return parser(json.issues[0].fields.description, 'jira');
             }
         };
     }

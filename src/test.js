@@ -123,4 +123,3 @@ m.getData().then(function(data) {
 
 // debug
 // require('fs').writeFileSync(__dirname + '/../log1', JSON.stringify(format(json, 'padtable'), null, 4));
-
