@@ -2,7 +2,7 @@ var util = require('../util');
 var chalk = require('chalk');
 
 var Template = function(data, id) {
-    this.id = [this.code, this.id].join('-');
+    this.id = [this.code, id].join('-');
     this.sectionData = data || [];
 };
 
@@ -16,7 +16,7 @@ Template.prototype.organize = function(mode) {
         var fieldCount = row.fields.length;
         return {
             role: row.role,
-            rowIndex: [that.code, rowIndex++].join('-'),
+            rowIndex: [that.id, rowIndex++].join('-'),
             ifs: (row.role === 'header') ? '||' : '|',
             fieldCount: fieldCount,
             fields: row.fields.map(function(field, i) {
@@ -39,6 +39,26 @@ Template.prototype.organize = function(mode) {
     return {
         rowData: rowData
     };
+};
+
+Template.prototype.getFields = function(rowIndex) {
+    return this.sectionData.data[rowIndex].fields.map(function(field) {
+        var v = field.value.trim();
+        return v.length === 0 ?  '(!this field is empty)' : v;
+    });
+};
+
+Template.prototype.update = function() {
+
+};
+Template.prototype.insert = function() {
+
+};
+Template.prototype.append = function() {
+
+};
+Template.prototype['delete'] = function() {
+
 };
 
 Template.format = function(section, mode) {

@@ -7,6 +7,9 @@ var providerFactory = {
         return {
             load: function(fn) {
                 fs.readFile(filepath, 'utf8', function(err, data) {
+                    if (err) {
+                        throw err;
+                    }
                     fn(data);
                 });
             }
@@ -35,4 +38,3 @@ module.exports.create = function(type) {
     }
     return providerFactory[type].apply(providerFactory, args);
 };
-

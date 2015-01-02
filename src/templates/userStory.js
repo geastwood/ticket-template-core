@@ -11,7 +11,7 @@ var Userstory = function(data) {
 };
 
 Userstory.prototype = _.create(Base.prototype, {
-    name: 'userstory',
+    name: 'userStory',
     code: 'u',
     $parent: Base
 });

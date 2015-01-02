@@ -14,7 +14,7 @@ var Checklist = function(data) {
 };
 
 Checklist.prototype = _.create(Base.prototype, {
-    name: 'checklist',
+    name: 'checkList',
     code: 'c',
     $parent: Base
 });
