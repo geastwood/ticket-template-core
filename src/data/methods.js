@@ -2,12 +2,26 @@ var methods = {};
 var _ = require('lodash');
 
 methods.getRows = function(mode) {
-    return _.flatten(this.templates.map(function(t) {
+    return _.flatten(this.getSections(mode));
+};
+
+methods.getSections = function(mode) {
+    return this.templates.map(function(t) {
         return t.$parent.format(t.organize(mode), mode);
-    }));
+    });
 };
 
 methods.print = function(mode) {
+    // var linebreak = '\n';
+        // linebreak = '\r\n';
+    if (mode === 'jira') {
+        return this.getSections().map(function(section) {
+            return section.reduce(function(prev, current) {
+                return prev + current.rowContent + '\r\n';
+            }, '');
+        }).join('\r\n\r\n');
+    }
+
     return this.getRows(mode).map(function(row) {
         return row.rowContent;
     }).join('\n');

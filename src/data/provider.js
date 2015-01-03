@@ -20,11 +20,11 @@ var providerFactory = {
         return {
             load: function(fn) {
                 var child, data = '', that = this;
+
                 child = require('child_process').spawn('curl', [
                     '-u', 'fliu:E4NTUyL8', '-X', 'GET', '-H', 'Content-Type: application/json',
                     'http://jira.muc.intelliad.de/rest/api/2/search?jql=key=' + id
                 ]);
-
                 child.stdout.on('data', function(chunk) {
                     data += chunk;
                 });

@@ -11,10 +11,16 @@ var Manager = function(dataProvider) {
     this.dataProvider = dataProvider;
 };
 
+/**
+ * @static
+ */
 Manager.create = function(dataProvider) {
     return new Manager(dataProvider);
 };
 
+/**
+ * assign dataPromise to object
+ */
 Manager.prototype.load = function() {
     var defer = Q.defer();
     this.dataProvider.load(function(data) {
@@ -34,6 +40,7 @@ Manager.prototype.getRawData = function() {
     }
 
     return this.dataPromise.then(function(data) {
+        // only convert parse string
         if (typeof data === 'string') {
             return JSON.parse(data);
         }
@@ -49,11 +56,10 @@ Manager.prototype.getData = function() {
         var config = require('../config'),
             mixinMethods = require('./methods'),
             counter = 0,
-            rst;
+            rst = {
+                templates: [],
+            };
 
-        rst = {
-            templates: [],
-        };
         json.sections.forEach(function(section) {
             var type = config().guessDefinition(section), Template;
 
