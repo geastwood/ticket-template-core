@@ -7,6 +7,7 @@ var Template = function(data, id) {
 };
 
 Template.prototype.organize = function(mode) {
+
     var pad = util.pad(),
         rowIndex = 0,
         that = this,

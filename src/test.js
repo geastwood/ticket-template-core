@@ -1,10 +1,11 @@
 var inquirer = require('inquirer');
 var Manager = require('./data/manager');
 var provider = require('./data/provider');
+var _ = require('lodash');
 
-var m = Manager.create(provider.create('local', 'id'));
+var m = Manager.create(provider.create('jira', 'id'));
 
-var rowSession = function session(data, templateAnswers, fn) {
+var rowSession = function session(data, templateAnswers, fn, options) {
     inquirer.prompt([{
         name: 'action',
         type: 'expand',
@@ -58,13 +59,19 @@ var rowSession = function session(data, templateAnswers, fn) {
             return typeof answers.column !== 'undefined';
         }
     }], function(answers) {
+
+        var configs = _.defaults({
+            counter: 1 // handle multiple insert
+        }, options);
+
         if (answers.action === 'exit') {
             fn({exit: true});
         } else { // if not `exit` repeat
             if (answers.action === 'update') {
                 data.update(templateAnswers.row, answers.column, answers.updatedValue);
             } else if (answers.action === 'insert') {
-                data.insert(templateAnswers.row, answers.insert);
+                data.insert(templateAnswers.row, answers.insert, configs.counter);
+                configs.counter += 1;
             } else if (answers.action === 'append') {
                 data.append(templateAnswers.row, answers.append);
             } else if (answers.action === 'delete') {
@@ -74,7 +81,7 @@ var rowSession = function session(data, templateAnswers, fn) {
             if (answers.action === 'delete') {
                 fn({exit: true});
             } else {
-                session(data, templateAnswers, fn);
+                session(data, templateAnswers, fn, options);
             }
         }
     });

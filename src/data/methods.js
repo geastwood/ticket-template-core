@@ -53,10 +53,11 @@ methods.update = function(key, fieldIndex, v) {
     });
 };
 
-methods.insert = function(key, content) {
+methods.insert = function(key, content, counter) {
+    counter = counter || 1; // counter for handling multiple insert
     var rowIndex = this.parseUniqueKey(key).index;
     this.getTemplateByKey(key).forEach(function(t) {
-        t.insert(rowIndex, content);
+        t.insert(rowIndex + counter, content, counter);
     });
 };
 

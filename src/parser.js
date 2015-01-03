@@ -7,11 +7,13 @@ var config      = require('./config'),
  */
 var parse = function(data, mode) {
 
-    var linebreak = '\n\n';
+    var linebreak = '\n\n', rst;
+
     if (mode === 'jira') {
         linebreak = '\r\n\r\n';
     }
-    var rst = {
+
+    rst = {
         sections: data.split(linebreak),
         rest: []
     };
@@ -35,11 +37,13 @@ var parse = function(data, mode) {
  * @private
  */
 var parseSection = function(section, rest, mode) {
-    var linebreak = '\n';
+    var linebreak = '\n', rst;
+
     if (mode === 'jira') {
         linebreak = '\r\n';
     }
-    var rst = section.split(linebreak).filter(function(line) {
+
+    rst = section.split(linebreak).filter(function(line) {
         // filter, pass if
         //  1) start with '|' or '||'
         //  2) non-empty
