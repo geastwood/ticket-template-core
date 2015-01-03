@@ -4,7 +4,7 @@ var parser = require('../parser');
 
 var providerFactory = {
     local: function(id) {
-        var filepath = __dirname + '/../../log'; // todo delete
+        var filepath = __dirname + '/../../log'; // TODO delete
         return {
             load: function(fn) {
                 fs.readFile(filepath, 'utf8', function(err, data) {
@@ -22,7 +22,7 @@ var providerFactory = {
                 var child, data = '', that = this;
                 child = require('child_process').spawn('curl', [
                     '-u', 'fliu:E4NTUyL8', '-X', 'GET', '-H', 'Content-Type: application/json',
-                    'http://jira.muc.intelliad.de/rest/api/2/search?jql=key=' + 'FR-5434'
+                    'http://jira.muc.intelliad.de/rest/api/2/search?jql=key=' + id
                 ]);
 
                 child.stdout.on('data', function(chunk) {
