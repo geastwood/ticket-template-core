@@ -12,8 +12,7 @@ methods.getSections = function(mode) {
 };
 
 methods.print = function(mode) {
-    // var linebreak = '\n';
-        // linebreak = '\r\n';
+
     if (mode === 'jira') {
         return this.getSections().map(function(section) {
             return section.reduce(function(prev, current) {
