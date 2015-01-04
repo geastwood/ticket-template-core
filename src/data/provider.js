@@ -3,8 +3,7 @@ var fs = require('fs');
 var parser = require('../parser');
 
 var providerFactory = {
-    local: function(id) {
-        var filepath = __dirname + '/../../log'; // TODO delete
+    local: function(filepath) {
         return {
             load: function(fn) {
                 fs.readFile(filepath, 'utf8', function(err, data) {
