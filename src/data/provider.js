@@ -33,7 +33,7 @@ var providerFactory = {
             },
             getDescription: function(data) {
                 var json = JSON.parse(data);
-                return parser(json.issues[0].fields.description, 'jira');
+                return parser(_.first(json.issues).fields.description, 'jira');
             }
         };
     }
