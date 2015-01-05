@@ -2,7 +2,7 @@ var Base    = require('./Base');
 var _       = require('lodash');
 
 // Userstory
-var Userstory = function(data) {
+var Userstory = function() {
     this.columnCount = 1;
     this.columnDefinitions = [{
         mode: 'pad', strLength: 138, pad: 'right', ellip: true
@@ -11,7 +11,7 @@ var Userstory = function(data) {
 };
 
 Userstory.prototype = _.create(Base.prototype, {
-    name: 'userStory',
+    name: 'userstory',
     code: 'u',
     $parent: Base
 });

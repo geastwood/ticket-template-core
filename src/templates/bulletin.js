@@ -2,7 +2,7 @@ var Base    = require('./Base');
 var _       = require('lodash');
 
 // Bulletin
-var Bulletin = function(data) {
+var Bulletin = function() {
     this.columnCount = 1;
     this.columnDefinitions = [
         {mode: 'pad', strLength: 3, pad: 'left', ellip: false},

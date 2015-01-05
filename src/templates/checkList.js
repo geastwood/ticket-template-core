@@ -2,7 +2,7 @@ var Base    = require('./Base');
 var _       = require('lodash');
 
 // Checklist
-var Checklist = function(data) {
+var Checklist = function() {
     this.columnCount = 1;
     this.columnDefinitions = [
         {mode: 'pad', strLength: 3, pad: 'left', ellip: false},
@@ -14,7 +14,7 @@ var Checklist = function(data) {
 };
 
 Checklist.prototype = _.create(Base.prototype, {
-    name: 'checkList',
+    name: 'checklist',
     code: 'c',
     $parent: Base
 });
