@@ -16,7 +16,7 @@ var providerFactory = {
         };
     },
     jira: function(opts) {
-        var user = [opts.user, ':', user.password].join('');
+        var user = [opts.user, ':', opts.password].join('');
         return {
             load: function(fn) {
                 var child, data = '', that = this;
