@@ -15,14 +15,15 @@ var providerFactory = {
             }
         };
     },
-    jira: function(id) {
+    jira: function(opts) {
+        var user = [opts.user, ':', opts.password].join('');
         return {
             load: function(fn) {
                 var child, data = '', that = this;
 
                 child = require('child_process').spawn('curl', [
-                    '-u', 'fliu:E4NTUyL8', '-X', 'GET', '-H', 'Content-Type: application/json',
-                    'http://jira.muc.intelliad.de/rest/api/2/search?jql=key=' + id
+                    '-u', user, '-X', 'GET', '-H', 'Content-Type: application/json',
+                    'http://jira.muc.intelliad.de/rest/api/2/search?jql=key=' + opts.id
                 ]);
                 child.stdout.on('data', function(chunk) {
                     data += chunk;
