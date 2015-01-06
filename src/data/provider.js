@@ -1,6 +1,5 @@
 var _ = require('lodash');
 var fs = require('fs');
-var parser = require('../parser');
 
 var providerFactory = {
     local: function(filepath) {
@@ -34,7 +33,7 @@ var providerFactory = {
             },
             getDescription: function(data) {
                 var json = JSON.parse(data);
-                return parser(_.first(json.issues).fields.description, 'jira');
+                return _.first(json.issues).fields.description;
             }
         };
     }

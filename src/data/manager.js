@@ -2,6 +2,7 @@ var Q = require('q');
 var _ = require('lodash');
 var fs = require('fs');
 var path = require('path');
+var parser = require('../parser');
 
 /**
  * @constructor
@@ -9,8 +10,9 @@ var path = require('path');
  *
  * @return {this}
  */
-var Manager = function(dataProvider) {
+var Manager = function(dataProvider, parseMode) {
     this.dataProvider = dataProvider;
+    this.parseMode = parseMode || 'normal';
 };
 
 /**
@@ -28,41 +30,38 @@ Manager.prototype.load = function() {
 /**
  * @return {Promise.thenable}
  */
-Manager.prototype.getRawData = function(mode) {
+Manager.prototype.getRawData = function() {
 
     if (!this.dataPromise) {
         this.load();
     }
 
     return this.dataPromise.then(function(data) {
-        // only convert parse string
-        if (typeof data === 'string' && mode !== 'parse') {
-            return JSON.parse(data);
-        }
         return data;
     });
+};
+
+Manager.prototype.parse = function(data) {
+    return parser(data, this.parseMode);
 };
 
 /**
  * @return {Promise.thenable}
  */
-Manager.prototype.getData = function(mode) {
+Manager.prototype.getData = function() {
+    var that = this;
 
-    return this.getRawData(mode).then(function(json) {
+    return this.getRawData().then(function(data) {
         var config = require('../config'),
             mixinMethods = require('./methods'),
-            parser = null,
             counter = 0,
             rst = {
                 templates: [],
             };
 
-        if (mode === 'parse') {
-            parser = require('../parser');
-            json = parser(json);
-        }
+        data = that.parse(data);
 
-        json.sections.forEach(function(section) {
+        data.sections.forEach(function(section) {
             var type = config().guessDefinition(section), Template;
 
             if (type === 'unknown') {
@@ -81,8 +80,8 @@ Manager.prototype.getData = function(mode) {
 /**
  * @static
  */
-Manager.create = function(dataProvider) {
-    return new Manager(dataProvider);
+Manager.create = function(dataProvider, parseMode) {
+    return new Manager(dataProvider, parseMode);
 };
 
 /**
