@@ -3,12 +3,13 @@ var _       = require('lodash');
 
 // Checklist
 var Checklist = function() {
-    this.columnCount = 1;
+    this.columnCount = 4;
+    this.autoIncrement = true;
     this.columnDefinitions = [
         {mode: 'pad', strLength: 3, pad: 'left', ellip: false},
         {mode: 'pad', strLength: 80, pad: 'right', ellip: true},
-        {mode: 'pad', strLength: 5, pad: 'center', ellip: false},
-        {mode: 'pad', strLength: 47, pad: 'right', ellip: true}
+        {mode: 'pad', strLength: 7, pad: 'center', ellip: false},
+        {mode: 'pad', strLength: 45, pad: 'right', ellip: true}
     ];
     Base.apply(this, arguments);
 };

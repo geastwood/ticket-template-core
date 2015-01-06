@@ -33,13 +33,11 @@ methods.optionList = function() {
 };
 
 methods.getFieldOptions = function(key) {
-    var rst = [], rowIndex = this.parseUniqueKey(key).index;
-    this.getTemplateByKey(key).forEach(function(t) {
-        rst = t.getFields(rowIndex);
-    });
-
-    return rst.map(function(field, index) {
-        return {name: field, value: index};
+    var rowIndex = this.parseUniqueKey(key).index;
+    return this.getTemplateByKey(key).getFields(rowIndex).map(function(field) {
+        field.name = field.name.trim();
+        field.name = (field.name.length === 0 ?  '(!this field is empty)' : field.name);
+        return field;
     });
 };
 
@@ -54,37 +52,36 @@ methods.parseUniqueKey = function(key) {
 
 methods.getTemplateByKey = function(key) {
     var that = this;
-    return this.templates.filter(function(t) {
+    return _.first(this.templates.filter(function(t) {
         return t.id === that.parseUniqueKey(key).id;
-    });
+    }));
 };
 
 methods.update = function(key, fieldIndex, v) {
-    var rowIndex = this.parseUniqueKey(key).index;
-    this.getTemplateByKey(key).forEach(function(t) {
-        t.update(rowIndex, fieldIndex, v);
-    });
+    var rowIndex = this.parseUniqueKey(key).index,
+        template = this.getTemplateByKey(key),
+        regex = /\{&}/;
+
+    if (regex.test(v)) {
+        v = v.replace(regex, template.getField(rowIndex, fieldIndex).value);
+    }
+
+    template.update(rowIndex, fieldIndex, v);
 };
 
 methods.insert = function(key, content, counter) {
     counter = counter || 1; // counter for handling multiple insert
     var rowIndex = this.parseUniqueKey(key).index;
-    this.getTemplateByKey(key).forEach(function(t) {
-        t.insert(rowIndex + counter, content, counter);
-    });
+    this.getTemplateByKey(key).insert(rowIndex + counter, content, counter);
 };
 
 methods.append = function(key, content) {
-    this.getTemplateByKey(key).forEach(function(t) {
-        t.append(content);
-    });
+    this.getTemplateByKey(key).append(content);
 };
 
 methods['delete'] = function(key) {
     var rowIndex = this.parseUniqueKey(key).index;
-    this.getTemplateByKey(key).forEach(function(t) {
-        t['delete'](rowIndex);
-    });
+    this.getTemplateByKey(key)['delete'](rowIndex);
 };
 
 module.exports = methods;

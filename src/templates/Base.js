@@ -11,7 +11,8 @@ Template.prototype.organize = function(mode) {
     var pad = util.pad(),
         rowIndex = 0,
         that = this,
-        rowData = null;
+        rowData = null,
+        counter = 0;
 
     rowData = this.sectionData.data.map(function(row) {
         var fieldCount = row.fields.length;
@@ -22,14 +23,21 @@ Template.prototype.organize = function(mode) {
             fieldCount: fieldCount,
             fields: row.fields.map(function(field, i) {
                 var config = that.columnDefinitions[i],
-                align = row.role === 'header' ? 'center' : config.pad,
-                padMode = row.role === 'header' ? 'pad' : config.mode,
-                rst = {};
+                    align = row.role === 'header' ? 'center' : config.pad,
+                    padMode = row.role === 'header' ? 'pad' : config.mode,
+                    rst = {},
+                    fieldValue = field.value;
+
+                // if auto increment column
+                if (that.autoIncrement === true && i === 0 && row.role !== 'header') {
+                    counter += 1;
+                    fieldValue = '' + counter;
+                }
 
                 if (mode === 'pretty') {
-                    rst.value = pad[padMode](field.value, config.strLength, align, config.ellip);
+                    rst.value = pad[padMode](fieldValue, config.strLength, align, config.ellip);
                 } else {
-                    rst.value = field.value;
+                    rst.value = fieldValue;
                 }
 
                 return rst;
@@ -42,10 +50,19 @@ Template.prototype.organize = function(mode) {
     };
 };
 
+Template.prototype.getField = function(rowIndex, fieldIndex) {
+    return this.sectionData.data[rowIndex].fields[fieldIndex];
+};
+
 Template.prototype.getFields = function(rowIndex) {
-    return this.sectionData.data[rowIndex].fields.map(function(field, i) {
-        var v = field.value.trim();
-        return v.length === 0 ?  '(!this field is empty)' : v;
+    var that = this;
+    return this.sectionData.data[rowIndex].fields.map(function(field, index) {
+        return {name: field.value, value: index};
+    }).filter(function(field, index) { // filter out to auto increment column
+        if (that.autoIncrement && index === 0) {
+            return false;
+        }
+        return true;
     });
 };
 
@@ -69,12 +86,15 @@ Template.prototype['delete'] = function(rowIndex) {
     this.sectionData.data.splice(rowIndex, 1);
 };
 
+/**
+ * @static build row from text
+ */
 Template.buildRow = function(content) {
     var fields;
 
-    fields = content.trim().split('|').map(function(field) {
+    fields = content.split('|').map(function(field) {
         return {
-            value: field
+            value: field.trim()
         };
     });
 
@@ -84,6 +104,9 @@ Template.buildRow = function(content) {
     };
 };
 
+/**
+ * @static format json
+ */
 Template.format = function(section, mode) {
     var rst = [];
 

@@ -3,11 +3,12 @@ var _       = require('lodash');
 
 // Bulletin
 var Bulletin = function() {
-    this.columnCount = 1;
+    this.columnCount = 3;
+    this.autoIncrement = true;
     this.columnDefinitions = [
         {mode: 'pad', strLength: 3, pad: 'left', ellip: false},
-        {mode: 'pad', strLength: 86, pad: 'right', ellip: true},
-        {mode: 'pad', strLength: 47, pad: 'right', ellip: true}
+        {mode: 'pad', strLength: 88, pad: 'right', ellip: true},
+        {mode: 'pad', strLength: 45, pad: 'right', ellip: true}
     ];
 
     Base.apply(this, arguments);

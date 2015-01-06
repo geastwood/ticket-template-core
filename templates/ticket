@@ -10,16 +10,16 @@
 ||###||Akzeptanzkriterien|| ||Kommentar||
 
 || ||Technische Akzeptanzkriterien|| || ||
-|1|Anforderungen von Produktmanagement komplett umgesetzt oder kommentiert|(x)| |
-|2|Code komplett in Trunk committed|(x)| |
-|3|Änderungen an Datenbank in Datei abgelegt und im Releaseticket verlinkt|(x)| |
-|4|Wordings sind eingebaut und überprüft|(x)| |
-|5|Review auf fremder Maschine durchgeführt|(x)| |
-|6|Review mit verschiedenen Grenzfällen erfolgreich durchgeführt|(x)| |
-|7|Zeit komplett geloggt|(x)| |
-|8|Fixversion richtig gesetzt|(x)| |
-|9|Ticket-Wall angepasst|(x)| |
+| |Anforderungen von Produktmanagement komplett umgesetzt oder kommentiert|(x)| |
+| |Code komplett in Trunk committed|(x)| |
+| |Änderungen an Datenbank in Datei abgelegt und im Releaseticket verlinkt|(x)| |
+| |Wordings sind eingebaut und überprüft|(x)| |
+| |Review auf fremder Maschine durchgeführt|(x)| |
+| |Review mit verschiedenen Grenzfällen erfolgreich durchgeführt|(x)| |
+| |Zeit komplett geloggt|(x)| |
+| |Fixversion richtig gesetzt|(x)| |
+| |Ticket-Wall angepasst|(x)| |
 
 || ||Testbarkeit|| || ||
-|1|alle Elemente (Fieldsets, Buttons, Panels,..) haben eindeutige Css Klassen|(x)| |
-|2|wichtige Informationen für Tester eingetragen|(x)| |
+| |alle Elemente (Fieldsets, Buttons, Panels,..) haben eindeutige Css Klassen|(x)| |
+| |wichtige Informationen für Tester eingetragen|(x)| |
