@@ -18,7 +18,7 @@ module.exports = {
     },
     'count of section': function(test) {
         var sections = this.data.sections;
-        test.equal(sections.length, 3, 'parse result correct.');
+        test.equal(sections.length, 7, 'parse result correct.');
         test.done();
     },
     // here test all not-template texts, they should be collected in to `rest` collection
