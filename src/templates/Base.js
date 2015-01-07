@@ -33,6 +33,7 @@ Template.prototype.organize = function(mode) {
                 if (that.autoIncrement === true && i === 0 && row.role !== 'header') {
                     counter += 1;
                     fieldValue = '' + counter;
+                    rst.autoIncement = true;
                 }
 
                 if (mode === 'pretty') {
@@ -47,7 +48,10 @@ Template.prototype.organize = function(mode) {
     });
 
     return {
-        rowData: rowData
+        id: that.id,
+        shortCode: that.code,
+        type: that.name,
+        data: rowData
     };
 };
 
@@ -112,7 +116,7 @@ Template.buildRow = function(content) {
 Template.format = function(section, mode) {
     var rst = [];
 
-    section.rowData.forEach(function(row) {
+    section.data.forEach(function(row) {
         var ifs = '|', rowStr;
 
         if (mode !== 'pretty') {
