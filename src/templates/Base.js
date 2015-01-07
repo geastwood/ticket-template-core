@@ -1,5 +1,6 @@
 var util = require('../util');
 var chalk = require('chalk');
+var _ = require('lodash');
 
 var Template = function(data, id) {
     this.id = [this.code, id].join('-');
@@ -93,8 +94,9 @@ Template.buildRow = function(content) {
     var fields;
 
     fields = content.split('|').map(function(field) {
+        var v = field.trim();
         return {
-            value: field.trim()
+            value: _.isEmpty(v) ? ' ' : v
         };
     });
 
