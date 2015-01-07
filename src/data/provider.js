@@ -2,6 +2,14 @@ var _ = require('lodash');
 var fs = require('fs');
 
 var providerFactory = {
+    // immediately resolve
+    direct: function(data) {
+        return {
+            load: function(fn) {
+                fn(data);
+            }
+        };
+    },
     local: function(filepath) {
         return {
             load: function(fn) {
@@ -44,7 +52,7 @@ var providerFactory = {
  */
 module.exports.create = function(type) {
     var args = _.rest(arguments);
-    if (!_.contains(['local', 'jira'], type)) {
+    if (!_.contains(['local', 'jira', 'direct'], type)) {
         throw 'unsupported type: "' + type + '"';
     }
     return providerFactory[type].apply(providerFactory, args);

@@ -4,6 +4,12 @@ var fs = require('fs');
 var path = require('path');
 var parser = require('../parser');
 
+var tpls = { // done this way for 'browserify'
+    userstory: require('../templates/userstory'),
+    bulletin: require('../templates/bulletin'),
+    checklist: require('../templates/checklist')
+};
+
 /**
  * @constructor
  * @param {Object} dataProvider must provide `load` method
@@ -62,15 +68,13 @@ Manager.prototype.getData = function() {
         data = that.parse(data);
 
         data.sections.forEach(function(section) {
-            var type = config().guessDefinition(section), Template;
+            var type = config().guessDefinition(section);
 
             if (type === 'unknown') {
                 throw 'cannot handle unknown template type';
             }
 
-            Template = require('../templates/' + type);
-
-            rst.templates.push(new Template(section, counter++));
+            rst.templates.push(new tpls[type](section, counter++));
         });
 
         return _.extend(rst, mixinMethods);
