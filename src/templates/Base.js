@@ -4,6 +4,7 @@ var _ = require('lodash');
 
 var Template = function(data, id) {
     this.id = [this.code, id].join('-');
+    this.categoryId = String.fromCharCode(65 + Number(id));
     this.sectionData = data || [];
 };
 
@@ -51,6 +52,7 @@ Template.prototype.organize = function(mode) {
         id: that.id,
         shortCode: that.code,
         type: that.name,
+        categoryId: that.categoryId,
         data: rowData
     };
 };
@@ -114,7 +116,11 @@ Template.buildRow = function(content) {
  * @static format json
  */
 Template.format = function(section, mode) {
-    var rst = [];
+    var rst = [], categoryId = section.categoryId;
+
+    if (mode === 'pretty') {
+        categoryId = chalk.yellow.bold(categoryId);
+    }
 
     section.data.forEach(function(row) {
         var ifs = '|', rowStr;
@@ -131,7 +137,11 @@ Template.format = function(section, mode) {
             return prev + v + ifs;
         }, ifs);
 
-        rst.push({rowIndex: row.rowIndex, rowContent: rowStr});
+        rst.push({
+            rowIndex: row.rowIndex,
+            rowContent: rowStr,
+            categoryId: categoryId
+        });
     });
 
     return rst;
