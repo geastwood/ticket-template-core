@@ -12,18 +12,17 @@ methods.getSections = function(mode) {
 };
 
 methods.print = function(mode, withCategory) {
-
-    if (mode === 'jira') {
-        return this.getSections().map(function(section) {
-            return section.reduce(function(prev, current) {
-                return prev + current.rowContent + '\r\n';
-            }, '');
-        }).join('\r\n\r\n');
-    }
-
     return this.getRows(mode).map(function(row) {
         return withCategory ? row.categoryId + row.rowContent : row.rowContent;
     }).join('\n');
+};
+
+methods.output = function() {
+    return this.getSections().map(function(section) {
+        return section.reduce(function(prev, current) {
+            return prev + current.rowContent + '\n';
+        }, '');
+    }).join('\n\n');
 };
 
 methods.optionList = function() {
