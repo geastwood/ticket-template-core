@@ -1,8 +1,10 @@
 var util = require('../util');
 var chalk = require('chalk');
+var _ = require('lodash');
 
 var Template = function(data, id) {
     this.id = [this.code, id].join('-');
+    this.categoryId = String.fromCharCode(65 + Number(id));
     this.sectionData = data || [];
 };
 
@@ -11,7 +13,8 @@ Template.prototype.organize = function(mode) {
     var pad = util.pad(),
         rowIndex = 0,
         that = this,
-        rowData = null;
+        rowData = null,
+        counter = 0;
 
     rowData = this.sectionData.data.map(function(row) {
         var fieldCount = row.fields.length;
@@ -22,14 +25,22 @@ Template.prototype.organize = function(mode) {
             fieldCount: fieldCount,
             fields: row.fields.map(function(field, i) {
                 var config = that.columnDefinitions[i],
-                align = row.role === 'header' ? 'center' : config.pad,
-                padMode = row.role === 'header' ? 'pad' : config.mode,
-                rst = {};
+                    align = row.role === 'header' ? 'center' : config.pad,
+                    padMode = row.role === 'header' ? 'pad' : config.mode,
+                    rst = {},
+                    fieldValue = field.value;
+
+                // if auto increment column
+                if (that.autoIncrement === true && i === 0 && row.role !== 'header') {
+                    counter += 1;
+                    fieldValue = '' + counter;
+                    rst.autoIncement = true;
+                }
 
                 if (mode === 'pretty') {
-                    rst.value = pad[padMode](field.value, config.strLength, align, config.ellip);
+                    rst.value = pad[padMode](fieldValue, config.strLength, align, config.ellip);
                 } else {
-                    rst.value = field.value;
+                    rst.value = fieldValue;
                 }
 
                 return rst;
@@ -38,14 +49,27 @@ Template.prototype.organize = function(mode) {
     });
 
     return {
-        rowData: rowData
+        id: that.id,
+        shortCode: that.code,
+        type: that.name,
+        categoryId: that.categoryId,
+        data: rowData
     };
 };
 
+Template.prototype.getField = function(rowIndex, fieldIndex) {
+    return this.sectionData.data[rowIndex].fields[fieldIndex];
+};
+
 Template.prototype.getFields = function(rowIndex) {
-    return this.sectionData.data[rowIndex].fields.map(function(field, i) {
-        var v = field.value.trim();
-        return v.length === 0 ?  '(!this field is empty)' : v;
+    var that = this;
+    return this.sectionData.data[rowIndex].fields.map(function(field, index) {
+        return {name: field.value, value: index};
+    }).filter(function(field, index) { // filter out to auto increment column
+        if (that.autoIncrement && index === 0) {
+            return false;
+        }
+        return true;
     });
 };
 
@@ -69,12 +93,16 @@ Template.prototype['delete'] = function(rowIndex) {
     this.sectionData.data.splice(rowIndex, 1);
 };
 
+/**
+ * @static build row from text
+ */
 Template.buildRow = function(content) {
     var fields;
 
-    fields = content.trim().split('|').map(function(field) {
+    fields = content.split('|').map(function(field) {
+        var v = field.trim();
         return {
-            value: field
+            value: _.isEmpty(v) ? ' ' : v
         };
     });
 
@@ -84,10 +112,17 @@ Template.buildRow = function(content) {
     };
 };
 
+/**
+ * @static format json
+ */
 Template.format = function(section, mode) {
-    var rst = [];
+    var rst = [], categoryId = section.categoryId;
 
-    section.rowData.forEach(function(row) {
+    if (mode === 'pretty') {
+        categoryId = chalk.yellow.bold(categoryId);
+    }
+
+    section.data.forEach(function(row) {
         var ifs = '|', rowStr;
 
         if (mode !== 'pretty') {
@@ -102,7 +137,11 @@ Template.format = function(section, mode) {
             return prev + v + ifs;
         }, ifs);
 
-        rst.push({rowIndex: row.rowIndex, rowContent: rowStr});
+        rst.push({
+            rowIndex: row.rowIndex,
+            rowContent: rowStr,
+            categoryId: categoryId
+        });
     });
 
     return rst;

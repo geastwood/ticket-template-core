@@ -1,10 +1,10 @@
 ||#||Aufgabe||Stat||Kommentar||
-|1|Service 1-5 geswitched|(x)| |
-|2|FE-App 1 geswitched|(x)| |
-|3|FE-App 2 geswitched|(x)| |
-|4|FE-App 3 geswitched|(x)| |
-|5|FE-App 4 geswitched|(x)| |
-|6|FE-Cron 1+2 geswitched|(x)| |
-|7|Latest-Pfad geswitched|(x)| |
-|8|Release-Mail verschickt|(x)| |
-|9|All DB-Queries ausgeführt|(x)| |
+| |Service 1-5 geswitched|(x)| |
+| |FE-App 1 geswitched|(x)| |
+| |FE-App 2 geswitched|(x)| |
+| |FE-App 3 geswitched|(x)| |
+| |FE-App 4 geswitched|(x)| |
+| |FE-Cron 1+2 geswitched|(x)| |
+| |Latest-Pfad geswitched|(x)| |
+| |Release-Mail verschickt|(x)| |
+| |All DB-Queries ausgeführt|(x)| |

@@ -1,15 +1,15 @@
 ||Was ist zu tun / Userstory||
 |EMPTY|
 
-|| ||Wichtige Informationen für Produktmanager||Kommentar||
+||#||Wichtige Informationen für Produktmanager||Kommentar||
 
-|| ||Wichtige Informationen für Entwickler|| ||
+||#||Wichtige Informationen für Entwickler||Kommentar||
 
-|| ||Wichtige Informationen für Tester|| ||
+||#||Wichtige Informationen für Tester||Kommentar||
 
 ||###||Akzeptanzkriterien|| ||Kommentar||
 
-|| ||Technische Akzeptanzkriterien|| || ||
+||#||Technische Akzeptanzkriterien|| ||Kommentar||
 |1|Anforderungen von Produktmanagement komplett umgesetzt oder kommentiert|(x)| |
 |2|Code komplett in Trunk committed|(x)| |
 |3|Änderungen an Datenbank in Datei abgelegt und im Releaseticket verlinkt|(x)| |
@@ -20,6 +20,6 @@
 |8|Fixversion richtig gesetzt|(x)| |
 |9|Ticket-Wall angepasst|(x)| |
 
-|| ||Testbarkeit|| || ||
+||#||Testbarkeit|| ||Kommentar||
 |1|alle Elemente (Fieldsets, Buttons, Panels,..) haben eindeutige Css Klassen|(x)| |
 |2|wichtige Informationen für Tester eingetragen|(x)| |
