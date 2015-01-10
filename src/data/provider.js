@@ -1,6 +1,7 @@
-var _ = require('lodash');
-var fs = require('fs');
+var _   = require('lodash');
+var fs  = require('fs');
 
+// Each returned factory object must have an load function
 var providerFactory = {
     // immediately resolve
     direct: function(data) {
@@ -10,6 +11,7 @@ var providerFactory = {
             }
         };
     },
+    // resolve locally in async mode
     local: function(filepath) {
         return {
             load: function(fn) {
@@ -22,6 +24,7 @@ var providerFactory = {
             }
         };
     },
+    // resolve remotely in async mode
     jira: function(opts) {
         var user = [opts.user, ':', opts.password].join('');
         return {
@@ -32,6 +35,7 @@ var providerFactory = {
                     '-u', user, '-X', 'GET', '-H', 'Content-Type: application/json',
                     'http://jira.muc.intelliad.de/rest/api/2/search?jql=key=' + opts.id
                 ]);
+                // handle chunked data
                 child.stdout.on('data', function(chunk) {
                     data += chunk;
                 });
@@ -39,6 +43,7 @@ var providerFactory = {
                     fn(that.getDescription(data));
                 });
             },
+            // hold logic of how to extract the description
             getDescription: function(data) {
                 var json = JSON.parse(data);
                 return _.first(json.issues).fields.description;

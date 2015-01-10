@@ -1,8 +1,8 @@
-var Q = require('q');
-var _ = require('lodash');
-var fs = require('fs');
-var path = require('path');
-var parser = require('../parser');
+var Q       = require('q');
+var _       = require('lodash');
+var fs      = require('fs');
+var path    = require('path');
+var parser  = require('../parser');
 
 var tpls = { // done this way for 'browserify'
     userstory: require('../templates/userstory'),
@@ -62,7 +62,7 @@ Manager.prototype.getData = function() {
             mixinMethods = require('./methods'),
             counter = 0,
             rst = {
-                templates: [],
+                templates: []
             };
 
         data = that.parse(data);

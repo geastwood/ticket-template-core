@@ -1,6 +1,6 @@
-var util = require('../util');
-var chalk = require('chalk');
-var _ = require('lodash');
+var util    = require('../util');
+var chalk   = require('chalk');
+var _       = require('lodash');
 
 var Template = function(data, id) {
     this.id = [this.code, id].join('-');
