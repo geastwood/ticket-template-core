@@ -6,7 +6,6 @@ var fs      = require('fs'),
 module.exports = {
     setUp: function(done) {
         var that = this, file = path.join(__dirname, 'data/dummyTicket.txt');
-        console.log(chalk.cyan('\u0009parsing "%s"'), file);
         fs.readFile(file, 'utf8', function(err, data) {
             that.data = parse(data);
             done();
