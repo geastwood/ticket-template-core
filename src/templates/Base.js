@@ -2,12 +2,23 @@ var util    = require('../util');
 var chalk   = require('chalk');
 var _       = require('lodash');
 
+/**
+ * @param data  data
+ * @param id    identification for the template
+ * @constructor
+ */
 var Template = function(data, id) {
     this.id = [this.code, id].join('-');
     this.categoryId = String.fromCharCode(65 + Number(id));
     this.sectionData = data || [];
 };
 
+/**
+ * Inject more data to the `data` structure
+ *
+ * @param mode
+ * @returns {{id: (string|*), shortCode: *, type: *, categoryId: (string|*), data: *}}
+ */
 Template.prototype.organize = function(mode) {
 
     var pad = util.pad(),
@@ -94,7 +105,10 @@ Template.prototype['delete'] = function(rowIndex) {
 };
 
 /**
- * @static build row from text
+ * build row structure from string content
+ *
+ * @param content
+ * @returns {{role: string, fields: Array}}
  */
 Template.buildRow = function(content) {
     var fields;
