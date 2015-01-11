@@ -5,6 +5,7 @@ var _       = require('lodash');
 var Bulletin = function() {
     this.columnCount = 3;
     this.autoIncrement = true;
+    this.commentColumn = 3;
     this.columnDefinitions = [
         {mode: 'pad', strLength: 3, pad: 'left', ellip: false},
         {mode: 'pad', strLength: 88, pad: 'right', ellip: true},

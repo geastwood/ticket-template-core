@@ -5,6 +5,8 @@ var _       = require('lodash');
 var Checklist = function() {
     this.columnCount = 4;
     this.autoIncrement = true;
+    this.checkColumn = 3;
+    this.commentColumn = 4;
     this.columnDefinitions = [
         {mode: 'pad', strLength: 3, pad: 'left', ellip: false},
         {mode: 'pad', strLength: 80, pad: 'right', ellip: true},

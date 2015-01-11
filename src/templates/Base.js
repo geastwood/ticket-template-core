@@ -104,6 +104,36 @@ Template.prototype['delete'] = function(rowIndex) {
     this.sectionData.data.splice(rowIndex, 1);
 };
 
+Template.prototype.finish = function(range) {
+    var check = range === 'all' ?
+        function(v, i) {
+            return i !== 0;
+        } :
+        function(v, i) {
+            return _.contains(range, i);
+        };
+    if (this.checkColumn > 0) {
+        this.sectionData.data.filter(check).filter(function(row) {
+            row.fields[this.checkColumn - 1].value = '(/)';
+        }.bind(this));
+    }
+};
+
+Template.prototype.comment = function(range, comment) {
+    var check = range === 'all' ?
+        function(v, i) {
+            return i !== 0;
+        } :
+        function(v, i) {
+            return _.contains(range, i);
+        };
+    if (this.commentColumn > 0) {
+        this.sectionData.data.filter(check).filter(function(row) {
+            row.fields[this.commentColumn - 1].value = comment;
+        }.bind(this));
+    }
+};
+
 /**
  * build row structure from string content
  *

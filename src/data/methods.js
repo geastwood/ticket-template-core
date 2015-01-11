@@ -1,5 +1,6 @@
-var methods     = {};
 var _           = require('lodash');
+var Command     = require('../command');
+var methods     = {};
 
 var parseUniqueKey = function(key) {
     var parts = key.trim().split('-');
@@ -74,13 +75,24 @@ methods.getFieldOptions = function(key) {
 };
 
 /**
- * Search right template from `this.template` array with a key
+ * Search the right template from `this.templates` array with a key
  * @param {String} key customized key
  * @returns {*}
  */
 methods.getTemplateByKey = function(key) {
     return _.first(this.templates.filter(function(t) {
         return t.id === parseUniqueKey(key).id;
+    }));
+};
+
+/**
+ * Search the right template from `this.templates` array with category id like `A`, `B`
+ * @param key
+ * @returns {*}
+ */
+methods.getTemplateByCategory = function(key) {
+    return _.first(this.templates.filter(function(t) {
+        return t.categoryId === key;
     }));
 };
 
@@ -120,7 +132,7 @@ methods.insert = function(key, content, counter) {
  * @param content   input content
  */
 methods.append = function(key, content) {
-    getTemplateByKey(key).append(content);
+    this.getTemplateByKey(key).append(content);
 };
 
 /**
@@ -132,60 +144,16 @@ methods['delete'] = function(key) {
     this.getTemplateByKey(key)['delete'](rowIndex);
 };
 
-methods.sectionMethods = function(sectionId, list) {
-    return {
-        finish: function() {
-            console.log(sectionId, list);
-        }
-    };
-};
+methods.command = function(cmd) {
+    var command = new Command(cmd);
+    var template = this.getTemplateByCategory(command.category);
 
-methods.cmd = function(cmd) {
-
-    var availCmds = ['finish'];
-    var argumentParse;
-    var categoryRegex = /^[A-Z]$/;
-    var parts = cmd.trim().split(/\s+/).filter(function(part) {
-        return part.length > 0;
-    });
-    parts.getCmd = function() {
-        return this[0];
-    };
-    parts.getCategory = function() {
-        return this[1];
-    };
-    parts.getArgument = function() {
-        return this[2];
-    };
-    argumentParse = function(arg) {
-        if (arg === 'all') {
-            return true;
-        } else if (/\d\.\.\d/.test(arg) === true) {
-            return true;
-        }
-        return false;
-    };
-
-    return {
-        validate: function() {
-            if (!_.contains(availCmds, parts.getCmd())) {
-                return 'Only "' + availCmds + '" is allowd.';
-            }
-            if (!categoryRegex.test(parts.getCategory())) {
-                return '"' + parts.getCategory() + '" is invalid. Second paramenter "Category" can only be one capital letter.';
-            }
-            if (!argumentParse(parts.getArgument())) {
-                return '"' + parts.getArgument() + '" is not valid.';
-            }
-            return true;
-        },
-        parse: function() {
-            return {id: parts.getCategory(), list: parts.getArgument()};
-        },
-        run: function() {
-            methods.sectionMethods.apply(methods, parts.slice(1))[parts.getCmd()]();
-        }
-    };
+    try {
+        template[command.command].apply(template, command.getArguments());
+    } catch(e) {
+        console.log('error occured', e);
+        return;
+    }
 };
 
 module.exports = methods;
