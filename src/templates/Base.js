@@ -1,14 +1,15 @@
-var util    = require('../util');
-var chalk   = require('chalk');
-var _       = require('lodash');
+var util        = require('../util');
+var chalk       = require('chalk');
+var _           = require('lodash');
+var definition  = require('./definition');
 
 /**
  * @param data  data
  * @param id    identification for the template
  * @constructor
  */
-var Template = function(data, id) {
-    this.id = [this.code, id].join('-');
+var Template = function(code, data, id) {
+    this.id = [code, id].join('-');
     this.categoryId = String.fromCharCode(65 + Number(id));
     this.sectionData = data || [];
 };
@@ -42,7 +43,7 @@ Template.prototype.organize = function(mode) {
                     fieldValue = field.value;
 
                 // if auto increment column
-                if (that.autoIncrement === true && i === 0 && row.role !== 'header') {
+                if (that.autoIncrement.on === true && i === that.autoIncrement.index && row.role !== 'header') {
                     counter += 1;
                     fieldValue = '' + counter;
                     rst.autoIncement = true;
@@ -77,7 +78,7 @@ Template.prototype.getFields = function(rowIndex) {
     return this.sectionData.data[rowIndex].fields.map(function(field, index) {
         return {name: field.value, value: index};
     }).filter(function(field, index) { // filter out to auto increment column
-        if (that.autoIncrement && index === 0) {
+        if (that.autoIncrement.on && index === that.autoIncrement.index) {
             return false;
         }
         return true;
@@ -122,6 +123,7 @@ Template.prototype.finish = function(range) {
 Template.prototype.comment = function(range, comment) {
     var check = range === 'all' ?
         function(v, i) {
+            console.log(v);
             return i !== 0;
         } :
         function(v, i) {
@@ -189,6 +191,36 @@ Template.format = function(section, mode) {
     });
 
     return rst;
+};
+
+Template.create = function(type, data, id) {
+    var json = definition;
+    var def = _.first(json.definitions.filter(function(def) {
+        return def.name === type;
+    }));
+    var instance = new Template(def.code, data, id);
+
+    instance.name = def.name;
+    instance.code = def.code;
+    instance.commentColumn = def.columns.reduce(function(init, curr, i) {
+        return curr.isComment ? i + 1 : init;
+    }, null);
+    instance.autoIncrement = def.columns.reduce(function(init, curr, i) {
+        return curr.autoIncrement ? {on: true, index: i} : init;
+    }, null) || {on: false};
+    instance.columnDefinitions = def.columns.map(function(column) {
+        return {
+            mode: 'pad',
+            strLength: column.length,
+            pad: column.pad,
+            ellip: column.ellip || true
+        };
+    });
+    instance.checkColumn = def.columns.reduce(function(init, curr, i) {
+        return curr.isCheckColumn ? i + 1 : init;
+    }, null);
+    instance.$parent = Template;
+    return instance;
 };
 
 module.exports = Template;

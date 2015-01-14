@@ -3,15 +3,69 @@
     "definitions": [
         {
             "name": "checklist",
-            "columns": ["key", "description", "status", "comment"]
+            "code": "c",
+            "columns": [
+                {
+                    "name": "key",
+                    "length": 3,
+                    "pad": "left",
+                    "autoIncrement": true,
+                    "ellip": false
+                },
+                {
+                    "name": "description",
+                    "length": 80,
+                    "pad": "right"
+                },
+                {
+                    "name": "status",
+                    "length": 7,
+                    "pad": "center",
+                    "ellip": false,
+                    "isCheckColumn": true
+                },
+                {
+                    "name": "comment",
+                    "length": 45,
+                    "pad": "right",
+                    "isComment": true
+                }
+            ]
         },
         {
             "name": "userstory",
-            "columns": ["description"]
+            "code": "u",
+            "columns": [
+                {
+                    "name": "description",
+                    "length": 138,
+                    "pad": "right"
+                }
+            ]
         },
         {
             "name": "bulletin",
-            "columns": ["key", "description", "comment"]
+            "code": "b",
+            "columns": [
+                {
+                    "name": "key",
+                    "length": 3,
+                    "pad": "left",
+                    "autoIncrement": true,
+                    "ellip": false
+                },
+                {
+                    "name": "description",
+                    "length": 88,
+                    "pad": "right"
+                },
+                {
+                    "name": "comment",
+                    "length": 45,
+                    "pad": "right",
+                    "isComment": true
+                }
+            ]
         }
     ]
 }

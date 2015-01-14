@@ -3,18 +3,12 @@ var _       = require('lodash');
 var fs      = require('fs');
 var path    = require('path');
 var parser  = require('../parser');
-
-var tpls = { // done this way for 'browserify'
-    userstory: require('../templates/userstory'),
-    bulletin: require('../templates/bulletin'),
-    checklist: require('../templates/checklist')
-};
+var Template = require('../templates/Base');
 
 /**
  * @constructor
- * @param {Object} dataProvider must provide `load` method
- *
- * @return {this}
+ * @param {Object} dataProvider     must provide `load` method
+ * @param {String} parseMode        `pretty` or anything else
  */
 var Manager = function(dataProvider, parseMode) {
     this.dataProvider = dataProvider;
@@ -34,7 +28,7 @@ Manager.prototype.load = function() {
 };
 
 /**
- * @return {Promise.thenable}
+ * @return {Promise}
  */
 Manager.prototype.getRawData = function() {
 
@@ -52,10 +46,9 @@ Manager.prototype.parse = function(data) {
 };
 
 /**
- * @return {Promise.thenable}
+ * @returns {Promise}
  */
 Manager.prototype.getData = function() {
-    var that = this;
 
     return this.getRawData().then(function(data) {
         var config = require('../config'),
@@ -65,7 +58,7 @@ Manager.prototype.getData = function() {
                 templates: []
             };
 
-        data = that.parse(data);
+        data = this.parse(data);
 
         data.sections.forEach(function(section) {
             var type = config().guessDefinition(section);
@@ -74,11 +67,11 @@ Manager.prototype.getData = function() {
                 throw 'cannot handle unknown template type';
             }
 
-            rst.templates.push(new tpls[type](section, counter++));
+            rst.templates.push(Template.create(type, section, counter++));
         });
 
         return _.extend(rst, mixinMethods);
-    });
+    }.bind(this));
 };
 
 /**

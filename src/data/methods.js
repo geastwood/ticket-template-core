@@ -148,12 +148,7 @@ methods.command = function(cmd) {
     var command = new Command(cmd);
     var template = this.getTemplateByCategory(command.category);
 
-    try {
-        template[command.command].apply(template, command.getArguments());
-    } catch(e) {
-        console.log('error occured', e);
-        return;
-    }
+    template[command.command].apply(template, command.getArguments());
 };
 
 module.exports = methods;
