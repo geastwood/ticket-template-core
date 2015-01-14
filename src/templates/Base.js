@@ -4,46 +4,76 @@ var _           = require('lodash');
 var definition  = require('./definition');
 
 /**
- * @param data  data
- * @param id    identification for the template
+ * create new template instance
+ *
+ * @param {Object}  definition  definition json of the template
+ * @param {Object}  data        data
+ * @param {Number}  id          identification for the template
  * @constructor
  */
-var Template = function(code, data, id) {
-    this.id = [code, id].join('-');
+var Template = function(definition, data, id) {
+    this.processDefinition(definition);
+    this.id = [this.code, id].join('-');
     this.categoryId = String.fromCharCode(65 + Number(id));
     this.sectionData = data || [];
 };
 
 /**
+ * Process definition, attach some calculated property to object
+ *
+ * @param {Object} definition object define the template, extract from definition/template.json
+ */
+Template.prototype.processDefinition = function(definition) {
+    this.name = definition.name;
+    this.code = definition.code;
+    this.commentColumn = definition.columns.reduce(function(init, curr, i) {
+        return curr.isComment ? i + 1 : init;
+    }, null);
+    this.autoIncrement = definition.columns.reduce(function(init, curr, i) {
+        return curr.autoIncrement ? {on: true, index: i} : init;
+    }, null) || {on: false};
+    this.columnDefinitions = definition.columns.map(function(column) {
+        return {
+            mode: 'pad',
+            strLength: column.length,
+            pad: column.pad,
+            ellip: column.ellip || true
+        };
+    });
+    this.checkColumn = definition.columns.reduce(function(init, curr, i) {
+        return curr.isCheckColumn ? i + 1 : init;
+    }, null);
+};
+
+/**
  * Inject more data to the `data` structure
  *
- * @param mode
+ * @param   {String} mode which changes the output accordingly
  * @returns {{id: (string|*), shortCode: *, type: *, categoryId: (string|*), data: *}}
  */
 Template.prototype.organize = function(mode) {
 
     var pad = util.pad(),
         rowIndex = 0,
-        that = this,
-        rowData = null,
-        counter = 0;
+        counter = 0,
+        rowData;
 
     rowData = this.sectionData.data.map(function(row) {
         var fieldCount = row.fields.length;
         return {
             role: row.role,
-            rowIndex: [that.id, rowIndex++].join('-'),
+            rowIndex: [this.id, rowIndex++].join('-'),
             ifs: (row.role === 'header') ? '||' : '|',
             fieldCount: fieldCount,
             fields: row.fields.map(function(field, i) {
-                var config = that.columnDefinitions[i],
+                var config = this.columnDefinitions[i],
                     align = row.role === 'header' ? 'center' : config.pad,
                     padMode = row.role === 'header' ? 'pad' : config.mode,
                     rst = {},
                     fieldValue = field.value;
 
                 // if auto increment column
-                if (that.autoIncrement.on === true && i === that.autoIncrement.index && row.role !== 'header') {
+                if (this.autoIncrement.on === true && i === this.autoIncrement.index && row.role !== 'header') {
                     counter += 1;
                     fieldValue = '' + counter;
                     rst.autoIncement = true;
@@ -56,15 +86,15 @@ Template.prototype.organize = function(mode) {
                 }
 
                 return rst;
-            })
+            }.bind(this))
         };
-    });
+    }.bind(this));
 
     return {
-        id: that.id,
-        shortCode: that.code,
-        type: that.name,
-        categoryId: that.categoryId,
+        id: this.id,
+        shortCode: this.code,
+        type: this.name,
+        categoryId: this.categoryId,
         data: rowData
     };
 };
@@ -74,15 +104,11 @@ Template.prototype.getField = function(rowIndex, fieldIndex) {
 };
 
 Template.prototype.getFields = function(rowIndex) {
-    var that = this;
     return this.sectionData.data[rowIndex].fields.map(function(field, index) {
         return {name: field.value, value: index};
     }).filter(function(field, index) { // filter out to auto increment column
-        if (that.autoIncrement.on && index === that.autoIncrement.index) {
-            return false;
-        }
-        return true;
-    });
+        return !(this.autoIncrement.on && index === this.autoIncrement.index);
+    }.bind(this));
 };
 
 Template.prototype.update = function(rowIndex, fieldIndex, v) {
@@ -139,7 +165,7 @@ Template.prototype.comment = function(range, comment) {
 /**
  * build row structure from string content
  *
- * @param content
+ * @param {String} content raw content of a row
  * @returns {{role: string, fields: Array}}
  */
 Template.buildRow = function(content) {
@@ -198,29 +224,10 @@ Template.create = function(type, data, id) {
     var def = _.first(json.definitions.filter(function(def) {
         return def.name === type;
     }));
-    var instance = new Template(def.code, data, id);
-
-    instance.name = def.name;
-    instance.code = def.code;
-    instance.commentColumn = def.columns.reduce(function(init, curr, i) {
-        return curr.isComment ? i + 1 : init;
-    }, null);
-    instance.autoIncrement = def.columns.reduce(function(init, curr, i) {
-        return curr.autoIncrement ? {on: true, index: i} : init;
-    }, null) || {on: false};
-    instance.columnDefinitions = def.columns.map(function(column) {
-        return {
-            mode: 'pad',
-            strLength: column.length,
-            pad: column.pad,
-            ellip: column.ellip || true
-        };
-    });
-    instance.checkColumn = def.columns.reduce(function(init, curr, i) {
-        return curr.isCheckColumn ? i + 1 : init;
-    }, null);
+    var instance = new Template(def, data, id);
     instance.$parent = Template;
     return instance;
+
 };
 
 module.exports = Template;

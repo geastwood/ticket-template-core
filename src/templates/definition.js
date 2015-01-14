@@ -1,1 +1,3 @@
-module.exports = require(require('path').join(__dirname, '../../definition/template'));
+var path = require('path');
+
+module.exports = require(path.join(__dirname, '../../definition/template'));
