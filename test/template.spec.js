@@ -6,29 +6,21 @@ module.exports.bulletin = {
         done();
     },
     code: function(test) {
-        this.bulletin.then(function(instance) {
-            test.equal(instance.code, 'b');
-            test.done();
-        });
+        test.equal(this.bulletin.code, 'b');
+        test.done();
     },
-    columnCount: function(test) {
-        this.bulletin.then(function(instance) {
-            test.equal(instance.commentColumn, 3);
-            test.done();
-        });
+    commentColumn: function(test) {
+        test.equal(this.bulletin.commentColumn, 3);
+        test.done();
     },
     autoIncrement: function(test) {
-        this.bulletin.then(function(instance) {
-            test.equal(instance.autoIncrement.on, true);
-            test.equal(instance.autoIncrement.index, 0);
-            test.done();
-        });
+        test.equal(this.bulletin.autoIncrement.on, true);
+        test.equal(this.bulletin.autoIncrement.index, 0);
+        test.done();
     },
     '$parent': function(test) {
-        this.bulletin.then(function(instance) {
-            test.deepEqual(instance.$parent, Template);
-            test.done();
-        });
+        test.deepEqual(this.bulletin.$parent, Template);
+        test.done();
     }
 };
 module.exports.checklist = {
@@ -37,15 +29,11 @@ module.exports.checklist = {
         done();
     },
     code: function(test) {
-        this.checklist.then(function(instance) {
-            test.equal(instance.code, 'c');
-            test.done();
-        });
+        test.equal(this.checklist.code, 'c');
+        test.done();
     },
-    columnCount: function(test) {
-        this.checklist.then(function(instance) {
-            test.equal(instance.commentColumn, 4);
-            test.done();
-        });
+    commentColumn: function(test) {
+        test.equal(this.checklist.commentColumn, 4);
+        test.done();
     }
 };
