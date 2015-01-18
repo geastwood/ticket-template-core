@@ -27,7 +27,7 @@ methods.getSections = function(mode) {
 };
 
 /**
- *
+ * @public
  * @param mode 'pretty'|anything else
  * @param {Boolean} withCategory specify whether to print together Category info e.g. A, B ...
  * @returns {string}
@@ -142,6 +142,11 @@ methods.append = function(key, content) {
 methods['delete'] = function(key) {
     var rowIndex = parseUniqueKey(key).index;
     this.getTemplateByKey(key)['delete'](rowIndex);
+};
+
+methods.isCommandValid = function(cmd) {
+    var cmd = new Command(cmd);
+    return cmd.validate(cmd);
 };
 
 methods.command = function(cmd) {

@@ -8,8 +8,8 @@ var pad = function(deli) {
     };
 
     var align = function(str, length, align) {
-        var leftside,
-            rightside,
+        var leftSide,
+            rightSide,
             diff = length - str.length;
 
         if (align === 'left') {
@@ -21,9 +21,9 @@ var pad = function(deli) {
             if (length <= str.length) {
                 return str;
             }
-            leftside = Math.floor(diff / 2);
-            rightside = (diff % 2) === 1 ? leftside + 1 : leftside;
-            return placeholder(leftside) + str + placeholder(rightside);
+            leftSide = Math.floor(diff / 2);
+            rightSide = (diff % 2) === 1 ? leftSide + 1 : leftSide;
+            return placeholder(leftSide) + str + placeholder(rightSide);
         }
     };
 
@@ -69,9 +69,6 @@ var pad = function(deli) {
         }
     };
 };
-
-// debug
-// pad('=');
 
 module.exports = {
     pad: pad,

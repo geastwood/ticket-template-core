@@ -1,7 +1,6 @@
 var definition = require('../definition/template.json');
-var api;
 
-api = module.exports = function() {
+module.exports = function() {
     return {
         // get separator
         getIFS: function(opts) {

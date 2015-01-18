@@ -19,6 +19,23 @@ module.exports = {
         test.ok(cmd.command === 'comment');
         test.ok(cmd.validate() === true);
         test.done();
+    },
+    'validate': function(test) {
+        var cmd = new Command('edit A 2'),
+            cmd1 = new Command('comment B#, 3'),
+            cmd2 = new Command('comment 1, 3'),
+            cmd3 = new Command('comment A all'),
+            cmd4 = new Command('comment A 1,3'),
+            cmd5 = new Command('comment B 13'),
+            cmd6 = new Command('comment B abc');
+        test.ok(cmd.validate().indexOf('Only') === 0);
+        test.ok(cmd1.validate().indexOf('one capital letter') > 0);
+        test.ok(cmd2.validate().indexOf('one capital letter') > 0);
+        test.equal(cmd3.validate(), true);
+        test.equal(cmd4.validate(), true);
+        test.equal(cmd5.validate(), true);
+        test.equal(cmd6.validate().indexOf('parsed range') > 0, true);
+        test.done();
     }
 };
 
@@ -31,10 +48,16 @@ module.exports.range = {
         this.cmd5 = new Command('finish B 1,3,4,5,6');
         this.cmd6 = new Command('finish B 1,3,4,5,4,1');
         this.cmd7 = new Command('finish B 4');
+        this.cmd8 = new Command('finish B');
         done();
     },
     'all': function(test) {
         var range = this.cmd1.range;
+        test.equal(range, 'all');
+        test.done();
+    },
+    'empty': function(test) {
+        var range = this.cmd8.range;
         test.equal(range, 'all');
         test.done();
     },

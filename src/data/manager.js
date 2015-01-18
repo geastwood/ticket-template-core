@@ -23,7 +23,6 @@ Manager.prototype.load = function() {
     this.dataProvider.load(function(data) {
         defer.resolve(data);
     });
-
     this.dataPromise = defer.promise;
 };
 

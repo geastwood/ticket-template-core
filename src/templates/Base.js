@@ -20,8 +20,8 @@ var Template = function(definition, data, id) {
 
 /**
  * Process definition, attach some calculated property to object
- *
  * @param {Object} definition object define the template, extract from definition/template.json
+ * @private
  */
 Template.prototype.processDefinition = function(definition) {
     this.name = definition.name;
@@ -167,6 +167,7 @@ Template.prototype.comment = function(range, comment) {
  *
  * @param {String} content raw content of a row
  * @returns {{role: string, fields: Array}}
+ * @static
  */
 Template.buildRow = function(content) {
     var fields;
@@ -219,6 +220,14 @@ Template.format = function(section, mode) {
     return rst;
 };
 
+/**
+ *
+ * @param type
+ * @param data
+ * @param id
+ * @returns {Template}
+ * @static
+ */
 Template.create = function(type, data, id) {
     var json = definition;
     var def = _.first(json.definitions.filter(function(def) {

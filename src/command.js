@@ -37,7 +37,11 @@ Command.prototype.parse = function() {
  */
 Command.prototype.parseRange = function(range) {
     var rst = [], rangeReg = /^\d\.{2,2}\d$/, rangeArr = [];
-    if (/^\d$/.test(range)) {
+
+    if (_.isEmpty(range)) {
+        return 'all';
+    }
+    if (/^\d+$/.test(range)) {
         rst.push(Number(range));
     } else if (rangeReg.test(range)) {
         rangeArr = range.split('..').map(Number).sort();

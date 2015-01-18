@@ -1,7 +1,7 @@
 var _   = require('lodash');
 var fs  = require('fs');
 
-// Each returned factory object must have an load function
+// Each returned factory object must have an `load` function
 var providerFactory = {
     // immediately resolve
     direct: function(data) {
